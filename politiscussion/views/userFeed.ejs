@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./temp/head') %>
+  
+    <%- include('./temp/nav') %>
+
+    <body>
+      <div class="container">
+        <br>
+        <a href="/post"><div class="btn btn-danger" id="new-discussion-btn">New discussion</div></a>
+
+        <hr>
+        <p>Recent posts</p>
+        <% if(discussions.length == 0) { %>
+          <code>there are no discussions posted yet</code>
+          <br>
+          <br>
+        <% } else if(discussions.length <= 15) { %>
+          <% for(i=0; i<discussions.length; ++i) { %>
+            <span><a href="<%= discussions[i].selectedTopicsHref %>"><div style="display: inline-block; background-color: #f2f2f2; padding: 5px; margin-bottom: 5px; border-radius: 10px; color: black"><%= discussions[i].topicCleanName %></div></a> <a href="<%= discussions[i].selectedTopicsHref %>/<%= discussions[i]._id %>"><%= discussions[i].title %></a> </span>
+            <br>
+          <% } %>
+        <% } else { %>
+          <% for(i=0; i<15; ++i) { %>
+            <span><a href="<%= discussions[i].selectedTopicsHref %>"><div style="display: inline-block; background-color: #f2f2f2; padding: 5px; margin-bottom: 5px; border-radius: 10px; color: black"><%= discussions[i].topicCleanName %></div></a> <a href="<%= discussions[i].selectedTopicsHref %>/<%= discussions[i]._id %>"><%= discussions[i].title %></a> </span>
+            <br>
+          <% } %>
+        <% } %>
+
+        <br>
+          
+      </div>
+    </body>
+
+    
+    
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./temp/head') %>
+
+    <%- include('./temp/nav') %>
+  
+    <body>
+        <div class="container">
+            <br>
+            <a href="/post?topic=<%= topic %>">
+                <div class="btn btn-danger">New <%= topicClean %> Discussion</div>
+            </a>
+            <br>
+            <br>
+
+            <% if(discussions.length != 0) { %>
+                <% if(discussions.length == 1) { %>
+                    <h1><%= topicClean %></h1>
+                    <code>There is 1 discussion</code>
+                    <br>
+                    <a href="<%= discussions[0].href %>"><%= discussions[0].title %></a>
+                    <br>
+                <% } else { %>
+                    <h1><%= topicClean %></h1>
+                    <code>There are <%= discussions.length %> discussions</code>
+                    <br>
+                    <% for(i=0; i<discussions.length; ++i) { %>
+                        <a href="<%= discussions[i].href %>"><%= discussions[i].title %></a>
+                        <br>
+                    <% } %>
+                <% } %>
+            <% } else { %>
+                <h1><%= topicClean %></h1>
+                <br>
+                <code>There are no discussions on this topic yet</code>
+            <% }%>
+            
+        </div>
+    </body>
+
+    
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+    <%- include('./templates/header') %>
+    <%- include('./templates/nav') %>
+
+    <body>
+        <div class="container">
+            <form action="/create" method="POST">
+                <div class="form-group mt-3">
+                    <input class="form-control mb-3" type="text" placeholder="Title" name="title" minlength="1" maxlength="75" required>
+                    <input type="hidden" name="username" value="<%= username %>">
+                    <input type="hidden" name="postedOn" id="date-basic" value="">
+                    <input type="hidden" name="postedOnExact" id="date-exact" value="">
+                    <textarea class="form-control mb-3" id="create-blog-textarea" placeholder="Blog (must be 1000 characters or more)" name="body" minlength="1000" maxlength="9000" required></textarea>
+                    <button class="btn btn-warning" type="submit">Post</button>
+                </div>
+            </form>
+        </div>
+    </body>
+    <script src="/scripts/date.js"></script>
+    <script src="/scripts/createBlog.js"></script>
+    <script>
+
+    </script>
+</html>

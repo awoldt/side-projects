@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./temp/head') %>
+
+    <%- include('./temp/nav') %>
+    
+    <body>
+            <div class="container">
+            <br>
+            <select class="form-select" aria-label="Default select example" style="width: 250px;" id="topics">
+
+                <% if(topic != undefined) { %>
+                    <option selected value="<%= topic %>" class="topicSelection"><%= topicName %></option>
+                    <% for(i=0; i<topicOptions.length; ++i) { %>
+                        <% if(topicOptions[i].value != topic) { %>
+                            <option value="<%= topicOptions[i].value %>" class="topicSelection"><%= topicOptions[i].topic %></option>
+                        <% } %>
+                    <% } %>
+
+                <% } else { %>
+                    <option selected value='null'>Select a topic</option>
+                    <option value="abortion" class="topicSelection">Abortion</option>
+                    <option value="black-lives-matter" class="topicSelection">Black Lives Matter</option>
+                    <option value="border-security" class="topicSelection">Border Security</option>
+                    <option value="climate" class="topicSelection">Climate</option>
+                    <option value="covid-19" class="topicSelection">COVID-19</option>
+                    <option value="critical-race-theory" class="topicSelection">Critical Race Theory</option>
+                    <option value="guns" class="topicSelection">Guns</option>
+                    <option value="healthcare" class="topicSelection">Healthcare</option>
+                    <option value="immigration" class="topicSelection">Immigration</option>
+                    <option value="minimum-wage" class="topicSelection">Minimum Wage</option>
+                    <option value="police-reform" class="topicSelection">Police Reform</option>
+                    <option value="social-media" class="topicSelection">Social Media</option>
+                    <option value="trump" class="topicSelection">Trump</option>
+                    <option value="voting-rights" class="topicSelection">Voting Rights</option>
+                <% } %>
+                
+            </select>
+            <br>
+            <div class="input-group"  style="width: 75%;">
+                <input type="text" class="form-control" placeholder="Title" aria-label="Username" aria-describedby="basic-addon1" disabled id="topic-title-input" maxlength="100">
+            </div>
+            <br>          
+            <div class="input-group">
+                <textarea class="form-control" aria-label="With textarea" disabled id="topic-textarea" style="height: 300px;" placeholder="Make your argument" maxlength="10000"></textarea>
+            </div>
+            <br>
+            <p class="text-secondary">Remember to keep all discussions civil and free from harrassment</p>
+            <br>
+            <div id="submit-div">
+                <div class="btn btn-danger" id="submit-btn">Post</div>
+            </div>
+            
+            
+        </div>
+    </body>
+
+    
+    <script src="/scripts/newDiscussion.js"></script>
+</html>

@@ -1,0 +1,79 @@
+<% if(signedin == true) { %>
+    <% if(alreadyLiked == true) { %>
+            
+            
+            <% if(isUsersDiscussion == false) { %>
+                <div style="padding: 3px; background-color: white;" id="like-btn" class="btn">
+                    <span id="svg-span">
+                        <span id="svg-span-icon">
+                            <% if(authorDetails.party == 'republican') { %>
+                                <img class="img-fluid" src="/imgs/icons/republican/hand-thumbs-up-fill.svg">
+                            <% } else if(authorDetails.party == 'democrat') { %>
+                                <img class="img-fluid" src="/imgs/icons/democrat/hand-thumbs-up-fill.svg">
+                            <% } else if(authorDetails.party == 'socialist') { %>
+                                <img class="img-fluid" src="/imgs/icons/socialist/hand-thumbs-up-fill.svg">
+                            <% } else if(authorDetails.party == 'libertarian') { %>
+                                <img class="img-fluid" src="/imgs/icons/libertarian/hand-thumbs-up-fill.svg">
+                             <% } %>
+                        </span>
+                    </span>
+                    
+                     Like <span class="text-secondary" style="font-size: 15px;" id="num-of-discussion-likes">(<%= discussions.likes %>)</span>
+                </div>
+                <script src="/scripts/discussionLikeBtn.js"></script>
+            <% } %>
+    <% } else { %>
+            
+           
+            <% if(isUsersDiscussion == false) { %>
+                <div style="padding: 3px; background-color: white;" id="like-btn" class="btn">
+                    <span id="svg-span">
+                        <span id="svg-span-icon">
+                            <% if(authorDetails.party == 'republican') { %>
+                                <img class="img-fluid" src="/imgs/icons/republican/hand-thumbs-up.svg">
+                            <% } else if(authorDetails.party == 'democrat') { %>
+                                <img class="img-fluid" src="/imgs/icons/democrat/hand-thumbs-up.svg">
+                            <% } else if(authorDetails.party == 'socialist') { %>
+                                <img class="img-fluid" src="/imgs/icons/socialist/hand-thumbs-up.svg">
+                            <% } else if(authorDetails.party == 'libertarian') { %>
+                                <img class="img-fluid" src="/imgs/icons/libertarian/hand-thumbs-up.svg">
+                             <% } %>
+                        </span>
+                    </span>
+                    
+                     Like <span class="text-secondary" style="font-size: 15px;" id="num-of-discussion-likes">(<%= discussions.likes %>)</span>
+                </div>
+                <script src="/scripts/discussionLikeBtn.js"></script>
+            <% } %>
+    <% } %>
+<% } else { %>
+        
+        <% if(isUsersDiscussion == false) { %>
+            <div style="padding: 3px; background-color: white;" id="like-btn" class="btn">
+                <span id="svg-span">
+                    <span id="svg-span-icon">
+                        <% if(authorDetails.party == 'republican') { %>
+                            <img class="img-fluid" src="/imgs/icons/republican/hand-thumbs-up.svg">
+                        <% } else if(authorDetails.party == 'democrat') { %>
+                            <img class="img-fluid" src="/imgs/icons/democrat/hand-thumbs-up.svg">
+                        <% } else if(authorDetails.party == 'socialist') { %>
+                            <img class="img-fluid" src="/imgs/icons/socialist/hand-thumbs-up.svg">
+                        <% } else if(authorDetails.party == 'libertarian') { %>
+                            <img class="img-fluid" src="/imgs/icons/libertarian/hand-thumbs-up.svg">
+                         <% } %>
+                    </span>
+                </span>
+                <script>
+                    var icon = document.getElementById('like-btn');
+                    icon.addEventListener('click', () => {
+                        alert('You must be signed in to like posts');
+                    })
+                </script>
+                
+                 Like <span class="text-secondary" style="font-size: 15px;">(<%= discussions.likes %>)</span>
+            </div>            
+        <% } %>
+<% } %>
+
+
+

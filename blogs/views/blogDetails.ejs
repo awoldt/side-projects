@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+    <%- include('./templates/header') %>
+    <%- include('./templates/nav') %>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <body>
+        <div class="container mt-5">
+            <h1 class="text-center mb-3" style="font-family: Roboto;"><%= blogTitle %></h1>
+            <p class="text-center text-secondary font-italic">Posted by <a href="/user/<%=blogAuthor%>"><%=blogAuthor%></a> | <%=exactTime%></p>
+            <p id="blog-text"><%= blogBody %></p>
+            <% if(canDelete == true) { %>
+                <div class="mb-5">
+                    <a id="delete-link">Delete blog</a>  
+                </div>
+                <script>
+                    var deleteBtn = document.getElementById('delete-link');
+                    deleteBtn.addEventListener('click', () => {
+                        var x = confirm('Are you sure you want to delete this blog? This action cannot be undone.');
+                        if(x == false) {
+                            //do nothing
+                        } else {
+                           fetch('/blogs/<%=blogId%>', {method: 'delete'})
+                            .then(() => {
+                                alert('Blog deleted successfully');
+                                window.location.assign('/');
+                            }) 
+                        }
+                    })
+                </script>
+            <% } %>
+        </div>
+    </body>
+    <script src="/scripts/blogBodyFormat.js"></script>
+</html>

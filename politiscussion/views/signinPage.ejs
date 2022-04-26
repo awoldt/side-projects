@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./temp/head') %>
+
+    <%- include('./temp/nav') %>
+    <script>
+      var loginLink = document.getElementById('login-btn');
+      loginLink.remove();
+      var createAcctBtn = document.getElementById('create-acct-btn');
+      createAcctBtn.remove();
+    </script>
+    
+    <body>
+        <div class="container">
+          <br>
+          <h4 style="margin-bottom: 15px;">Sign in</h4>
+          <script>
+              function color(input) {
+                if(input.value != "") {
+                  input.style.border = '1px solid #ced4da';
+                }
+              }  
+    
+            </script>
+          <input type="email" class="form-control" placeholder="Email" style="width: 275px; margin-bottom: 10px;" onkeyup="color(this)">
+          <input type="password" class="form-control" placeholder="Password" style="width: 275px; margin-bottom: 10px;" onkeyup="color(this)">
+
+          <div id="create-div" style="margin-top: 10px;">
+              <button type="button" class="btn btn-primary" style="margin-right: 10px;" id="signin-btn">Sign in</button> <a href="/" id="home-link">home</a>
+          </div>
+          <br>
+          <p>Dont have an account? <a href="/signup">Sign up</a></p>
+
+          <script src="/scripts/signinFetch.js"></script>
+      </div>
+    </body>
+
+    
+</html>

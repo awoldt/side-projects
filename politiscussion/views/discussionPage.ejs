@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./temp/head') %>
+
+    <%- include('./temp/nav') %>
+    
+    <style>
+        pre {
+            white-space: pre-wrap;       /* Since CSS 2.1 */
+            white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+    </style>
+
+    <body>
+        <div class="container">
+            <br>
+            <a href="/" style="text-decoration: none;">home</a> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="lightgrey" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+            </svg> 
+            <a href="/topics" style="text-decoration: none;">topics</a>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="lightgrey" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+            </svg>
+            <a href="/topics/<%= discussions.topic %>" style="text-decoration: none;"><%= discussions.topic %></a> 
+                 
+            <br>
+            <br>
+            <pre><h1><%= discussions.title %></h1></pre>
+            <p class="text-secondary">
+                posted by <a href="/profile/<%= authorDetails._id %>" style="text-decoration: none;"><%=  authorDetails.username %></a> <span id="party-tag" style="background-color: <%= authorDetails.party_color %>; color: white; padding: 5px; border-radius: 5px; font-size: 14px;"><%= authorDetails.party %></span> on <%= discussions.createdAtClean %>
+                <%-  include('./temp/likeBtn') %>
+            </p>
+
+            
+
+            
+            <br>
+            <pre><%= discussions.text %></pre> 
+
+            <% if(isUsersDiscussion == true) { %>
+                <div class="btn btn-link" style="color: red; padding: 0px; text-decoration: none;" id="delete-btn">Delete post</div>
+            <% } %>
+            
+            <br>
+            <br>
+            <%- include('./temp/commentSection') %>
+        </div>
+    </body>
+    <% 
+    if(isUsersDiscussion == true) { 
+    %>
+        <script src="/scripts/deleteDiscussion.js"></script>
+    <% } %>
+    
+</html>

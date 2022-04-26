@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./temp/head') %>
+    
+    <%- include('./temp/nav') %>
+
+
+    <body>
+        <div class="container">
+        
+          
+      
+          <h4 style="margin-top: 15px; margin-bottom: 10px;">Account signup</h4>
+
+        
+
+        
+
+          <div style="margin-bottom: 25px;" id="party-selection-div">
+            <div style="width: 150px; display: inline-block; margin-right: 25px; cursor: pointer; padding: 20px; border-radius: 10px;" class="text-center party-selection" onclick="partySelection = 'republican'; this.style.backgroundColor = 'rgb(153, 204, 255, 0.5)'; document.getElementsByClassName('party-selection')[1].style.backgroundColor = 'white'; document.getElementsByClassName('party-selection')[2].style.backgroundColor = 'white'; document.getElementsByClassName('party-selection')[3].style.backgroundColor = 'white';">
+              <img class="img-fluid" src="/imgs/Republicanlogo.webp" alt="republican elephant logo">
+              <span>Republican</span>
+            </div>
+
+            <div style="width: 150px; display: inline-block; cursor: pointer; padding: 20px; border-radius: 10px;" class="text-center party-selection" onclick="partySelection = 'democrat'; this.style.backgroundColor = 'rgb(153, 204, 255, 0.5)'; document.getElementsByClassName('party-selection')[0].style.backgroundColor = 'white'; document.getElementsByClassName('party-selection')[2].style.backgroundColor = 'white'; document.getElementsByClassName('party-selection')[3].style.backgroundColor = 'white';">
+              <img class="img-fluid" src="/imgs/democrat.webp" alt="democrat donkey logo">
+              <span>Democrat</span>
+            </div>
+
+            <div style="width: 150px; display: inline-block; cursor: pointer; padding: 20px; border-radius: 10px;" class="text-center party-selection" onclick="partySelection = 'libertarian'; this.style.backgroundColor = 'rgb(153, 204, 255, 0.5)'; document.getElementsByClassName('party-selection')[0].style.backgroundColor = 'white'; document.getElementsByClassName('party-selection')[1].style.backgroundColor = 'white'; document.getElementsByClassName('party-selection')[3].style.backgroundColor = 'white';">
+              <img class="img-fluid" src="/imgs/libertarian.svg" alt="libertarian porcupine logo">
+              <span>Libertarian</span>
+            </div>
+
+            <div style="width: 150px; display: inline-block; cursor: pointer; padding: 20px; border-radius: 10px;" class="text-center party-selection" onclick="partySelection = 'socialist'; this.style.backgroundColor = 'rgb(153, 204, 255, 0.5)'; document.getElementsByClassName('party-selection')[0].style.backgroundColor = 'white'; document.getElementsByClassName('party-selection')[1].style.backgroundColor = 'white'; document.getElementsByClassName('party-selection')[2].style.backgroundColor = 'white';">
+              <img class="img-fluid" src="/imgs/socialism.webp" alt="socialist hands locked in circle logo">
+              <span>Socialist</span>
+            </div>
+          </div>
+          
+
+
+            <div style="width: 275px;" id="inputs-div">
+
+
+              <input type="email" class="form-control" placeholder="Email" style="margin-bottom: 10px;" onkeyup="
+                if(this.value != '') {this.style.border = '1px solid #ced4da'};
+              ">
+              <input type="text" class="form-control" placeholder="Username" style=" margin-bottom: 10px;" maxlength="35" onkeyup="
+                if(this.value != '') {this.style.border = '1px solid #ced4da'};
+              ">
+              <input type="password" class="form-control" placeholder="Password" style=" margin-bottom: 10px;" onkeyup="
+                if(this.value != '') {this.style.border = '1px solid #ced4da'};
+              ">
+              <input type="password" class="form-control" placeholder="Confirm password" style="margin-bottom: 10px;" onkeyup="
+                if(this.value != '') {this.style.border = '1px solid #ced4da'};
+              ">
+              <div id="create-div" style="margin-top: 10px;">
+                <button type="button" class="btn btn-primary" style="margin-right: 10px;" id="create-btn">Create</button> <a href="/" id="home-link">home</a>
+              </div>
+            </div>
+
+            <span id="encrypt-message">
+              <p class="text-muted" style="font-size: 13px; margin-top: 25px;">All data sent is encrypted and secure <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+                </svg>
+              </p>
+            </span>
+            
+            
+            <script src="/scripts/signupFetch.js"></script>
+      </div>
+    </body>
+
+    
+</html>

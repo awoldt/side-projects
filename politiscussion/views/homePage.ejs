@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./temp/head') %>
+
+    <%- include('./temp/nav') %>
+
+    <body>
+        <div class="container">
+        <div class="text-center mt-5">
+          <h1 style="margin-bottom: 100px;">Debate some of the most controversial topics we face today</h1>
+          <h2>Open discussions with no censorship or bias creates diverse thinking</h2> 
+          <br>
+          <p style="margin-bottom: 20px;">
+            Tech giants control the vast majority of information we see daily and can decide what ideas they want floating out on the internet. 
+            Anything that goes against the mainstream can be censored, and new perspectives will never be able to reach new eyes.
+
+          </p>
+          <img class="img-fluid" src="/imgs/open.webp" style="width: 700px;" alt="people having discussions with no censorship">
+          <br>
+          <br>
+          <br>
+          <h2>Have a voice that cannot be restricted. Provide evidence structured arguments, where others can share opposing perspectives.</h2>
+          <br>
+          <p style="margin-bottom: 50px;">
+            Open, non-restrictive discussions will give a glimpse into how people from different political backgrounds feel on certain subjects.
+            Keeping the conversation free from harassment and censorship will bring people to be confident in describing their viewpoints to others.
+          </p>
+          <img class="img-fluid" src="/imgs/ideas.webp" style="width: 450px;" alt="thoughts of opposing views">
+          <br>
+          <br>
+          <br>
+          <h2>No single ideology has the correct answer. Understanding where others come from can help better shape your opinion on a topic.</h2>
+          <br> 
+          <p>
+            Keeping yourself locked in a bubble with information only coming from one side of the aisle can make it difficult to understand where other people are coming from. 
+            Disagreement with a particular subject is not a bad thing. Taking into consideration the thought process of others can help expand your own knowledge.
+          </p>
+          <img class="img-fluid" src="/imgs/people.webp" style="width: 1000px;" alt="people shaping their opinions based on others">
+          <br>
+          
+        </div>
+        
+
+        <hr>
+          <p>Recent posts</p>
+          <% if(discussions.length == 0) { %>
+            <code>there are no discussions posted yet</code>
+            <br>
+            <br>
+          <% } else if(discussions.length <= 15) { %>
+            <% for(i=0; i<discussions.length; ++i) { %>
+              <span><a href="<%= discussions[i].selectedTopicsHref %>"><div style="display: inline-block; background-color: #f2f2f2; padding: 5px; margin-bottom: 5px; border-radius: 10px; color: black"><%= discussions[i].topicCleanName %></div></a> <a href="<%= discussions[i].selectedTopicsHref %>/<%= discussions[i]._id %>"><%= discussions[i].title %></a> </span>
+              <br>
+            <% } %>
+          <% } else { %>
+            <% for(i=0; i<15; ++i) { %>
+              <span><a href="<%= discussions[i].selectedTopicsHref %>"><div style="display: inline-block; background-color: #f2f2f2; padding: 5px; margin-bottom: 5px; border-radius: 10px; color: black"><%= discussions[i].topicCleanName %></div></a> <a href="<%= discussions[i].selectedTopicsHref %>/<%= discussions[i]._id %>"><%= discussions[i].title %></a> </span>
+              <br>
+            <% } %>
+          <% } %>
+          
+          <br>
+        
+      </div>
+    </body>
+
+    
+</html>

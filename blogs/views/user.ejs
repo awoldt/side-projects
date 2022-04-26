@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+    <%- include('./templates/header') %>
+    <%- include('./templates/nav') %>
+
+    <body>
+        <div class="container">
+            <h3 class="mt-3"><%=username%>'s Profile</h3>
+            <code><%= blogs.length%> blogs posted</code>
+            <div class="row mt-3">
+                <% for(i=0; i<blogTitles.length; ++i) { %>
+                    <div class="col-lg-4">
+                        <a href="/blogs/<%=blogLinks[i]%>">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                        <h4 class="card-title text-center"><%= blogTitles[i] %></h4>
+                                </div>
+                            </div> 
+                        </a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </body>
+    <script>
+        var x = document.getElementById('login-btn');
+        x.remove();
+    </script>
+</html>

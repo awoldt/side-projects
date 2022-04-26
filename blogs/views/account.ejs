@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+    <!--custom header-->
+    <head>
+        <title> <%=title%> </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- CSS only -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <!-- JS, Popper.js, and jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="/style.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <h3 class="mt-3">Hello <%=username%></h3>
+            <hr style="border: 1px solid black">
+            <div class="mt-5 mb-5">
+                <h4>Account details:</h4>
+                <p class="mb-1">Email: <%=email%></p>
+                <p class="mb-1">Password: <%=password%> <a href="/account/password-reset">change</a></p> 
+                <p class="mb-1">Username: <%=username%></p>
+            </div>
+            <a class="btn btn-primary" href="/">Return home</a> <div class="btn btn-link" id="del-acct-btn" style="color: red;">Delete Account</div>
+        </div>
+    </body>
+    <script>
+        const x = document.getElementById('del-acct-btn');
+        x.addEventListener('click', () => {
+            var y = confirm('Are you sure you want to delete your account?');
+            if(y == true) {
+                var v = confirm('Are you sure? This action can not be undone.');
+                if(v == true) {
+                    fetch('/account', {method: 'delete', credentials: 'same-origin'})
+                    .then(() => {
+                        alert('Account successfully deleted');
+                        window.location.assign('/');
+                    })
+                }
+            }
+        })
+    </script>
+</html>

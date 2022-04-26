@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+    <%- include('./templates/header') %>
+    <%- include('./templates/nav') %>
+
+    <body>
+        <div class="container">
+            <!-- Alert message -->
+            <div class="alert mt-3 <%= alertClass %>" id="alert-div" role="alert">
+                <p id="alert-message" class="mb-0"><%= alert %></p>
+            </div>
+            <p id="redirecting"></p>
+            <% if( redirect == true) { %>
+                <!-- Redirects users to home page after 3 seconds -->
+                <script>
+                    var x = document.getElementById('login-btn');
+                    x.remove();
+                    var time = 3;
+                    document.getElementById('redirecting').innerHTML = "Redirecting in " + time;
+
+                    //countdown
+                    setInterval(() => {
+                        time -= 1;
+                        document.getElementById('redirecting').innerHTML = "Redirecting in " + time;
+                    }, 1000)
+
+                    //execution
+                    setTimeout(() => {
+                        window.location.assign('/');
+                    }, 3000)
+                </script>
+            <% } else { %>
+                <a href="/" class="btn btn-link p-0">Return Home</a>
+            <% } %>
+        </div>
+        <script>
+            var x = document.getElementById('alert-message');
+            var t = document.getElementById('login-btn');
+            t.remove();
+            if(x.innerText == 'You must be logged in to post blogs') {
+                var y = document.createElement('a');
+                y.setAttribute('class', 'btn btn-primary mr-3');
+                y.setAttribute('href', '/login');
+                y.innerText = "Log in";
+                var r = document.getElementsByClassName('btn-link')[0];
+                r.remove();
+                var l = document.createElement('a');
+                l.setAttribute('href', '/');
+                l.setAttribute('class', 'btn btn-link mb-0');
+                l.innerText = 'Return Home';
+                var c = document.getElementsByClassName('container')[0];
+                c.appendChild(y);
+                c.appendChild(l);
+            }
+        </script>
+    </body>
+</html>

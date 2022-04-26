@@ -1,0 +1,9 @@
+<ul class="list-group">
+   <% for(i=0; i<discussionTopics.length; ++i) { %>
+    <% if(discussionTopics[i][0].length == 0) { %>
+        <li class="list-group-item"><a href="/topics/<%= discussionTopics[i][2] %>" style="text-decoration: none;"><%= discussionTopics[i][1] %> <span class="text-secondary">(0)</span></a></li>
+    <% } else { %>
+        <li class="list-group-item"><a href="/topics/<%= discussionTopics[i][2] %>" style="text-decoration: none;"><%= discussionTopics[i][1] %> <span class="text-secondary">(<%= discussionTopics[i][0].length %>)</span></a></li>
+    <% } %>
+   <% } %>
+</ul>

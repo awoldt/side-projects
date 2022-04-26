@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./temp/head') %>
+  
+    <%- include('./temp/nav') %>
+
+    <body>
+        <div class="container">
+            <br>
+            <h3 style="display: inline-block; margin-right: 5px;"><%= userProfile.username %></h3> 
+            <% if(profileBelongToUser == true) { %>
+                <a href="/profile">Account settings</a> 
+            <% } %>
+            
+            <br>
+            
+            <span id="party-tag" style="background-color: <%= userProfile.party_color %>; color: white; padding: 2px; border-radius: 5px; font-size: 14px;"><%= userProfile.party %></span>
+           
+            
+            <br>
+            <br>
+            
+            <% if(discussions.length != 0) { %>
+                <h5>Discussions</h5>
+                <hr> 
+                <% for(i=0; i<discussions.length; ++i) { %>
+                    <a href="<%= discussions[i].href %>"><%= discussions[i].title %></a>
+                    <br>
+                <% } %>
+            <% } %>
+            <br>
+            
+            
+            
+        </div>
+    </body>
+
+    
+    
+</html>

@@ -1,0 +1,22 @@
+<nav class="navbar bg-light">
+    <a class="navbar-brand" href="/">
+        <h2 class="mb-0">Bhlogs</h2>
+    </a>
+    <% if(user) { %>
+        <div class="text-center">
+            <ul class="nav navbar-nav">
+                <li class="dropdown"> 
+                    <p id="welcome" class="dropdown-toggle mb-0" data-toggle="dropdown" style="cursor: pointer;">Welcome <%= user %></p>
+                    <ul class="dropdown-menu" style="border: none; background-color: #f8f9fa;">
+                        <li class="text-center"><a href="/account">Account</a></li>
+                        <li class="text-center"><a href="/user/<%=user%>">Profile</a></li>
+                        <li class="text-center"><a href="/logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+          
+        </div>
+    <% } else { %>
+        <a class="btn btn-primary" href="/login" id="login-btn">Log in</a>
+    <% } %>    
+</nav>

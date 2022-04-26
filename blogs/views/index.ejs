@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+    <!--custom header-->
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-JY3ELXPTKZ"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JY3ELXPTKZ');
+        </script>
+
+        <title> <%=title%> </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Create a free Bhlogs account today and have the ability to post unlimited blogs for the world to see">
+        <!-- CSS only -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <!-- JS, Popper.js, and jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="/style.css">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    </head>
+    <%- include('./templates/nav') %>
+    <body>
+        <div class='container mt-3'>
+            <!-- Alert message -->
+            <div class="alert mt-3 <%= alertClass %>" id="alert-div" role="alert">
+                <p id="alert-message" class="mb-0"><%= alert %></p>
+            </div>
+            
+            <a href="/create"><div class="btn btn-warning mb-3">Create new blog</div></a>
+
+            <!--hosting tag-->
+            <% if(content.length == 1) { %>
+                <p class="mb-5"><code>Hosting 1 blog</code></p>
+            <% } else { %>
+                <p class="mb-5"><code>Hosting <%= content.length %> blogs</code></p>
+            <% } %>
+            
+
+            <!--blogs-->
+            <% if(content.length == 0) { %>
+                <p>No blogs to display</p>
+            <% } else { %>
+                <% for(i=0; i<10; ++i) { %>
+                    <% if(content[i] == undefined) { %>
+                        <% break %>
+                    <% } else { %>
+                        <a href="/blogs/<%=content[i]._id%>" class="blog-links">
+                            <h3 class="blog-titles"><%= content[i].title %></h3>
+                            <p class="blog-usernames text-secondary">Posted by <%= content[i].username %> on <%= content[i].postedOn %></p>
+                            <div>
+                                <p class="blog-body"><%= content[i].body %></p>
+                            </div>
+                        </a>
+                    <% } %> 
+                <% } %>
+            <% } %>
+
+            <%# finds out how many pages there are going to be %> 
+            <% var numOfPages = 1 %>
+            <% var multiplier = 1 %>
+            <% while(true) { %>
+                <% if(10*multiplier < content.length) { %>
+                    <% numOfPages += 1 %>
+                    <% multiplier += 1 %> 
+                <% } else { %>
+                    <% break %>
+                <% } %>
+            <% } %>
+
+            <!--pages-->
+            <% if(numOfPages == 1) { %>
+                <%# does not show page links at the bottom if only 1 page of blogs exist %>
+            <% } else { %>
+                    <% var noMorePages = false %>
+                    <%# finds the remainder of last page %>
+                    <%# if true the last page of blogs will have less than 10 blogs displayed %>
+                    <% if((content.length % 10 != 0) && (noMorePages = false)) { %>
+                        <div id="pages-div">
+                            <span class="mr-3">Page</span>
+                            <% for(i=1; i<numOfPages+1; ++i) { %>
+                                <p class="btn btn-link pages pl-0 mb-0"><%= i %></p>
+                            <% } %> 
+                        </div>
+                <% } else { %>
+                        <%# The last page will have exactly 10 blogs %>
+                        <% if(content.length < 91) { %>
+                                <div id="pages-div">
+                                    <span class="mr-3">Page</span>
+                                    <% for(i=1; i<numOfPages+1; ++i) { %>
+                                        <p class="btn btn-link pages pl-0 mb-0"><%= i %></p>
+                                    <% } %>
+                                </div>
+                        <% } else { %>
+                            <% noMorePages = true %>
+                            <%  numOfPages = 10 %>
+                                <div id="pages-div">
+                                    <span class="mr-3">Page</span>
+                                    <% for(i=1; i<numOfPages+1; ++i) { %>
+                                        <p class="btn btn-link pages pl-0 mb-0"><%= i %></p>
+                                    <% } %>
+                                </div>
+                        <% } %>
+                <% } %>
+            <% } %>
+            <!--pages-->
+            <% var noMorePages = false %>
+            <%# finds the remainder of last page %>
+            <%# if true the last page of blogs will have less than 10 blogs displayed %>
+            <% if((content.length % 10 != 0) && (noMorePages = false)) { %>
+                <div id="pages-div">
+                    <% for(i=1; i<numOfPages+1; ++i) { %>
+                        <p class="btn btn-link pages"><%= i %></p>
+                    <% } %> 
+                </div>
+           <% } else { %>
+                <%# This last page will have exactly 10 blogs %>
+                <%# max pages allowed on screen is 10 %>
+                <% if(content.length < 91) { %>
+                        <div id="pages-div">
+                            <% for(i=1; i<numOfPages+1; ++i) { %>
+                                <p class="btn btn-link pages"><%= i %></p>
+                            <% } %>
+                        </div>
+                <% } else { %>
+                    <% noMorePages = true %>
+                    <%  numOfPages = 10 %>
+                        <div id="pages-div">
+                            <% for(i=1; i<numOfPages+1; ++i) { %>
+                                <p class="btn btn-link pages"><%= i %></p>
+                            <% } %>
+                        </div>
+                <% } %>
+           <% } %>
+        </div>
+        <%- include('./templates/footer') %>
+    </body>
+    <script src="/scripts/removeAlert.js"></script>
+    <script src="/scripts/shortBlogDisplay.js"></script>
+    <script src='/scripts/pages.js'></script>
+</html>

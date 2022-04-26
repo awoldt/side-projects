@@ -1,0 +1,44 @@
+.navbar-brand {
+    color: red;
+    font-family: Poppins;
+}
+.navbar-brand:hover {
+    color: red;
+}
+
+.form-control {
+    width: 20vw;
+    min-width: 250px;
+}
+
+.alert {
+    width: 25vw;
+    min-width: 250px;
+}.alert.alert-div {
+    width: 150px;
+    min-width: 50px;
+}
+
+
+.blog-body {
+    color: black;
+}
+
+#create-blog-textarea {
+    width: 55vw;
+    height: 350px;
+}
+
+#create-blog-span {
+    display: inline-flex;
+}
+
+#delete-link {
+    color: red;
+    cursor: pointer;
+}
+
+#blog-text {
+    font-size: 17px;
+}
+
