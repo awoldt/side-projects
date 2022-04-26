@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./temp/header'); %>
+    <body>
+        <!--navbar-->
+        <div class="container-fluid p-0">
+           <%- include('./temp/nav'); %> 
+        </div>
+        
+        <div class="container">
+            <% if(alert != null) { %>
+                <%- include('./temp/alert'); %> 
+            <% } %>
+
+            <!--stock price and 30 day chart-->
+            <%- include('./temp/priceAndChart'); %> 
+            
+            <!--company information-->
+            <%- include('./temp/companyProfile'); %>
+            
+            <!--company news-->
+            <%- include('./temp/stockNews'); %>
+
+            <!--related stocks-->
+            <%- include('./temp/relatedStocks'); %>
+
+            <!--footer links-->
+            <%- include('./temp/footer'); %>
+
+        </div>
+    </body>
+
+    <script>
+        var descriptionSpan = document.getElementById('description');
+        var descriptionSpanLong = descriptionSpan.innerText;
+        var descriptionSpanShort;
+        const infoSpans = document.querySelectorAll('.info-span');
+        const realtedDivs = document.querySelectorAll('.related-div');
+
+            var more = document.createElement('span');
+            more.innerHTML = 'more...';
+            more.style.color = 'blue';
+            more.style.cursor = 'pointer';
+            var less = document.createElement('span');
+            less.innerHTML = 'less';
+            less.style.color = 'blue';
+            less.style.cursor = 'pointer';
+            //need to shorten description
+            if(descriptionSpan.innerText.length > 450) {
+                var str = '';
+                for(i=0; i<450; ++i) {
+                    str += descriptionSpanLong[i];
+                }
+                descriptionSpanShort = str;
+                descriptionSpan.innerText = str;
+                descriptionSpan.innerText += ' ';
+                descriptionSpan.appendChild(more);
+
+            }
+            more.addEventListener('click', () => {
+                descriptionSpan.innerText = descriptionSpanLong + ' ';
+                descriptionSpan.appendChild(less);
+            })
+            less.addEventListener('click', () => {
+                descriptionSpan.innerText = descriptionSpanShort + ' ';
+                descriptionSpan.appendChild(more);
+            })
+        
+        infoSpans.forEach((x) => {
+            if(x.innerText[0] == '$') {
+                if(x.innerText.length == 1) {
+                    x.innerText = 'n/a';
+                    x.style.color = 'red';
+                }
+            }
+            else {
+                if(x.innerText == '') {
+                    x.innerText = 'n/a';
+                    x.style.color = 'red';
+                }
+            }
+            
+        })
+    </script>
+</html>

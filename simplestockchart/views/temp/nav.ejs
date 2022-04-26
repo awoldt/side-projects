@@ -1,0 +1,67 @@
+<!--user navigation-->
+<nav class="navbar" style="background-color: #f2f2f2;">
+    <div class="container-fluid p-1">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/" title="Go to Simplestockchart homepage">
+                <img class="img-fluid" alt="Simplestockchart logo" src="favicon.ico" style="height: 38px; width: 38px; margin-left: 10px;">
+            </a>
+        </div>
+        <% if(homePage != true) { %>
+            <div>
+                <div style="display: inline-block;"><input class="form-control mr-sm-2" placeholder="Search any ticker" aria-label="Search" id="search-div"></div>
+                <div style="display: inline-block;"><button class="btn btn-outline-secondary my-2 my-sm-0" id="s-btn">Search</button></div>
+            </div>
+            <script>
+                var q = document.getElementById('search-div');
+                function search() {            
+                    q = q.value;
+                    const url = 'https://simplestockchart.com/' + q;
+                    location.assign(url);
+                }
+                const sBar = document.getElementById('search-div');
+                const sBtn = document.getElementById('s-btn');
+                sBtn.addEventListener('click', search);
+                sBar.addEventListener('keyup', e => {
+                    if(e.keyCode == 13) {
+                        search();
+                    }
+                })
+            </script>
+            <script>
+                function getScreenWidth() {
+                    var w = window.innerWidth;
+                    var size;
+                    //sm screen
+                    if(w < 992) {
+                        size = 'sm'
+                    }
+                    else {
+                        size = 'mdAndAbove'
+                    }
+                    return size;
+                }
+
+                window.onload = () => {
+                    var w = getScreenWidth();
+                    if(w == 'sm') {
+                        document.getElementById('search-div').style.width = '170px';
+                    }
+                    else {
+                        document.getElementById('search-div').style.width = '300px';
+                    }
+                }
+
+                window.onresize = () => {
+                    var w = getScreenWidth();
+                    if(w == 'sm') {
+                        document.getElementById('search-div').style.width = '170px';
+                    
+                    }
+                    else {
+                        document.getElementById('search-div').style.width = '300px';
+                    }
+                }
+            </script>
+        <% } %>
+    </div>
+</nav>

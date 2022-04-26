@@ -1,0 +1,121 @@
+<div class="row">
+    <div class="col-lg-6">
+        <% if(companyProfile[1].length == 0) { %>
+            <code style="color: red">Cannot get ticker data at this time</code>
+        <% } else { %>
+            <h1 style="margin-top: 10px;"><%= companyProfile[1].name %></h1>
+            <span class="text-secondary"><span id="stock-symbol"><%= companyProfile[1].symbol %></span> | <%= companyProfile[1].exchange %></span>
+                    
+            <br>
+        <% } %>
+        
+        <div style="margin-top: 25px;">
+            <% if(stockPriceData[1].currentPrice != null) { %>
+                <span style="font-size: 50px;">$<%= stockPriceData[1].currentPrice; %></span>
+            <% } %>
+                
+            <% if(stockPriceData[1].change > 0) { %>
+                <span id="price-change" style="margin-left: 15px; color: #009933; font-size: 25px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-arrow-up" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/></svg> <%= stockPriceData[1].change.toFixed(2)%> (<%= stockPriceData[1].percentChange %>%)</span>
+            <% } else if(stockPriceData[1].change < 0) { %>
+                <span id="price-change" style="margin-left: 15px; color: #ff0000; font-size: 25px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-arrow-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/></svg> <%= stockPriceData[1].change.toFixed(2)%> (<%= stockPriceData[1].percentChange %>%)</span>
+            <% } else { %>
+                
+            <% } %>
+
+            <p style="font-size: 13px; margin-top: 5px;" class="text-secondary">Price data gathered <%= stockPriceData[1].time %></p>
+
+            <br>
+
+        </div>
+
+        <% if(chartData != undefined) { %>
+            <% chartData.slice().reverse().forEach((x) => { %>
+                <p class="chart-data" data-price="<%= x.close %>" data-date="<%= x.date %>"></p>
+            <% }) %>
+        <% } else { %>
+            <code>no chart data to show</code>
+        <% } %>
+        
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <div id="chart" style="margin-top: 15px;"></div>
+
+        <script>
+            var chartResult = [];
+
+            const chartData = document.querySelectorAll('.chart-data');
+            chartData.forEach((v) => {
+                var chartObj = {x: null, y: null};
+                chartObj.x = v.dataset.date;
+                chartObj.y = v.dataset.price;
+                chartResult.push(chartObj);
+            })
+
+            var pChangeColor;
+            var lastIndex = chartResult.length-1;
+            
+            //red
+            if(Number(chartResult[0].y) > Number(chartResult[lastIndex].y)) {
+                pChangeColor = '#e60000';
+            }
+            //green
+            else if(Number(chartResult[0].y) < Number(chartResult[lastIndex].y)) {
+                pChangeColor = '#009933';
+            }
+            else {
+                pChangeColor = 'grey';
+            }
+
+            var startDate = chartResult[0].x;
+            startDate = startDate.split('-');
+            startDate.shift();
+            startDate = startDate.join('/');
+            var endDate = chartResult[(chartResult.length-1)].x;
+            endDate = endDate.split('-');
+            endDate.shift();
+            endDate = endDate.join('/');
+
+            var options = {
+                series: [{
+                    name: 'Price',
+                    data: chartResult
+                }],
+                chart: {
+                    type: 'area',
+                    height: 350,
+                    zoom: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    text: startDate + ' to ' + endDate
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'straight',
+                    colors: [pChangeColor]
+                },
+                xaxis: {
+                    type: 'datetime',
+                    labels: {
+                        show: true
+                    }
+                },
+                yaxis: {
+                    show: false
+                },
+                grid: {
+                    show: false
+                },
+                legend: {
+                    horizontalAlign: 'left'
+                },
+                colors: [pChangeColor]
+            }
+
+                var chart = new ApexCharts(document.querySelector("#chart"), options);
+                chart.render();
+        </script>
+        
+    </div>

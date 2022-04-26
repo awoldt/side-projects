@@ -1,0 +1,14 @@
+{
+    "data": [
+        {"name": "apple", "redirectTicker": "aapl"},
+        {"name": "google", "redirectTicker": "googl"},
+        {"name": "facebook", "redirectTicker": "fb"},
+        {"name": "carnival", "redirectTicker": "ccl"},
+        {"name": "disney", "redirectTicker": "dis"},
+        {"name": "zoom", "redirectTicker": "zm"},
+        {"name": "nike", "redirectTicker": "nke"},
+        {"name": "target", "redirectTicker": "tgt"},
+        {"name": "square", "redirectTicker": "sq"},
+        {"name": "walmart", "redirectTicker": "wmt"}
+    ]
+}

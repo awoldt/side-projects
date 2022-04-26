@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./temp/header'); %>
+    <body>
+      <div class="container-fluid p-0 mb-3">
+        <%- include('./temp/nav'); %> 
+      </div>
+
+        <div class="container">
+          <%- include('./temp/marketIndex'); %>
+
+          <div class="text-center" style="margin-top: 25px;">
+            <h1>Search any stock ticker and get accurate price data</h1>
+          </div>
+
+          <div class="row text-center" style="margin-top: 25px;">
+            <div>
+              <div style="display: inline-block; width: 100%; margin-bottom: 10px;"><input class="form-control mr-sm-2" placeholder="Search any ticker" aria-label="Search" id="search-div"></div>
+              <div style="display: inline-block;"><button class="btn btn-outline-secondary my-2 my-sm-0" id="s-btn">Search</button></div>
+            </div>
+          </div>
+          <script>
+            var q = document.getElementById('search-div');
+            function search() {            
+                q = q.value;
+                const url = 'https://simplestockchart.com/' + q;
+                location.assign(url);
+            }
+            const sBar = document.getElementById('search-div');
+            const sBtn = document.getElementById('s-btn');
+            sBtn.addEventListener('click', search);
+            sBar.addEventListener('keyup', e => {
+                if(e.keyCode == 13) {
+                    search();
+                }
+            })
+            </script>
+          
+          
+
+            <div class="row" style="margin-top: 50px;">
+              <div class="col-md-6">
+                <h4 class="text-center">Today's Winners <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-arrow-up" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/></svg></h4>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Symbol</th>
+                            <th scope="col">Change ($)</th>
+                            <th scope="col">Change (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <% for(i=0; i<8; ++i) { %>
+                        <tr style=" background-color: rgb(0, 153, 51, .1);">
+                          <th scope="row"><a href="https://simplestockchart.com/<%= gainerData[i].ticker.toLowerCase() %>"><%= gainerData[i].ticker %></a></th>
+                          <td><%= gainerData[i].changes %></td>
+                          <td><%= gainerData[i].changesPercentage %></td>
+                        </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+              </div>
+
+              <div class="col-md-6">
+                  <h4 class="text-center">Today's Losers <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-arrow-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/></svg></h4>
+                  <table class="table table-sm">
+                      <thead>
+                          <tr>
+                              <th scope="col">Symbol</th>
+                              <th scope="col">Change ($)</th>
+                              <th scope="col">Change (%)</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <% for(i=0; i<8; ++i) { %>
+                          <tr style=" background-color: rgb(255, 0, 0, .1);">
+                            <th scope="row"><a href="https://simplestockchart.com/<%= loserData[i].ticker.toLowerCase() %>"><%= loserData[i].ticker %></a></th>
+                            <td><%= loserData[i].changes %></td>
+                            <td><%= loserData[i].changesPercentage %></td>
+                          </tr>
+                        <% } %>
+                      </tbody>
+                    </table>
+              </div>
+            </div>
+            
+            <%- include('./temp/footer'); %>
+        </div>
+    </body>
+</html>

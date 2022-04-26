@@ -1,0 +1,29 @@
+<% //no related stocks, do not put related section on page %>
+<% if(relatedStockData == undefined) { %>
+    
+<% } else { %>
+    <hr>
+    <h4 style="margin-bottom: 25px;">Related Stocks <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-collection" viewBox="0 0 16 16"><path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z"/></svg></h4>
+    <div class="row" style="margin-bottom: 20px;">
+        <% for(i=0; i<relatedStockData.length; ++i) { %>
+            <div class="col-lg-2 col-md-4 text-center" style="margin-bottom: 25px;">
+                <% var url = relatedStockData[i].symbol.toLowerCase(); %>
+                <a href="<%= '/' + url %>" style="text-decoration: none;">
+                    <div style="border-radius: 10px; margin-top: 10px;">
+                        <img src="<%= logoLinks[i] %>" class="img-fluid r-logos" style="border-radius: 10px;" alt="<%= relatedStockData[i].name %> logo" onerror="this.src = '/file-image.svg'">       
+                    </div>
+                    <h5 style="font-size: 17px; color: black"><%= relatedStockData[i].name %></h5>
+                    <% if(relatedStockData[i].change > 0) { %>
+                        <span style="color: black; font-size: 17px;">$<%= relatedStockData[i].price %></span> 
+                        <br>
+                        <span style="color: green;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-arrow-up" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/></svg><%= relatedStockData[i].change %> (<%= relatedStockData[i].changesPercentage %>%)</span>
+                    <% } else { %>
+                        <span style="color: black; font-size: 17px;">$<%= relatedStockData[i].price %></span> 
+                        <br>
+                        <span style="color: red;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-arrow-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/></svg><%= relatedStockData[i].change %> (<%= relatedStockData[i].changesPercentage %>%)</span>
+                    <% } %> 
+                </a>
+            </div>
+        <% } %>
+    </div>
+<% } %>
