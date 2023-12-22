@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto");
+
+#top_block {
+  margin-top: 50px;
+}
+
+@media (max-width: 767.9px) {
+  #bottom_block {
+    display: none;
+  }
+}
+
+/* Medium (MD) */
+@media (min-width: 768px) and (max-width: 1999.9px) {
+  h1.text-gradient {
+    font-size: 50px;
+  }
+  #bottom_block {
+    display: none;
+  }
+}
+
+/* Large (LG) */
+@media (min-width: 1200px) and (max-width: 1399.99px) {
+  h1.text-gradient {
+    font-size: 70px;
+  }
+  #bottom_block {
+    display: none;
+  }
+}
+
+/* Extra Large (XXL) */
+@media (min-width: 1400px) {
+  h1.text-gradient {
+    font-size: 100px;
+  }
+  #bottom_block {
+    display: block;
+  }
+}
+
+body,
+html {
+  height: 100%;
+  font-family: "Roboto";
+}
+
+.text-gradient {
+  background: -webkit-linear-gradient(315deg, #1e30f3 0%, #e21e80 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#endpoint_block {
+  font-size: 20px;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+div a {
+  text-decoration: none;
+}
+
+a {
+  width: fit-content;
+}
+
+p {
+  margin-bottom: 10px;
+}

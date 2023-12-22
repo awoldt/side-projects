@@ -1,0 +1,55 @@
+@model AccountViewModel;
+
+<section style="background-color: white;">
+    <div class="container px-5 pb-5">
+        <h1>Account</h1>
+
+        <h2 class="mb-0 mt-5 mb-4" style="font-size: 45px;">
+            Hello @Model.userData.UserName
+        </h2>
+
+        <div class="alert alert-info">Your API key - <b>@Model.userData.ApiKey</b><br><br>Keep this key safe, anyone can
+            send emails on your behalf with it</div>
+
+        <p>You have <b class="text-gradient">@Model.userData.RemainingApiCalls</b> API calls left today</p>
+
+        @if (Model.EmailHistory == null)
+        {
+            <p style="font-size: 25px;"><i>Error while getting email history :(</i></p>
+        }
+        @if (Model.EmailHistory != null && Model.EmailHistory.Length > 0)
+        {
+            <div class="p-3 bg-light">
+                <img src="/imgs/icons/email.svg" width="25" />
+                <p style="display: inline-block;">Here are the @Model.EmailHistory.Length most recent emails you've sent</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Email Body</th>
+                            <th scope="col">Sent On (UTC)</th>
+                            <th scope="col">Sent To</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in Model.EmailHistory)
+                        {
+                            <tr>
+                                <td>@x.EmailBody</td>
+                                <td>@x.SentOn</td>
+                                <td>@foreach(var y in x.SentTo) {
+                                    <span>@y</span>
+                                }</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        }
+        @if (Model.EmailHistory != null && Model.EmailHistory.Length == 0)
+        {
+            <p style="font-size: 25px;"><i>You have not sent any emails yet.</i></p>
+        }
+
+    </div>
+</section>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+    crossorigin="anonymous"
+  />
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"
+  ></script>
+    <script src="/public/scripts/insiderSearch.js" defer></script>
+  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+    <title>Insider Trading Activity | Full SEC Reports</title>
+
+    <meta
+      name="description"
+      content="Get the latest insider trades filed with the SEC. Check each individual person or organization involved with the trade"
+    />
+   
+    <meta property="og:image" content="/public/favicon.ico" />
+    
+    <meta property="og:title" content="Recent Insider Trading" />
+    <meta
+      property="og:description"
+      content="Get the latest insider trades filed with the SEC. Check each individual person or organization involved with the trade"
+    />
+    <meta property="og:type" content="website" />
+   
+    <meta name="twitter:card" content="summary" />
+   
+    <meta
+      name="twitter:title"
+      content="Insider Trading Activity | Full SEC Reports"
+    />
+    <meta
+      name="twitter:description"
+      content="Get the latest insider trades from all public companies"
+    />
+    <meta name="twitter:image" content="/public/favicon.ico" />
+    <link rel="icon" type="image/svg" href="/public/favicon.svg">
+  </head>
+
+  <body style="background-color: rgb(220, 220, 220, 0.2)">
+    <nav
+      class="navbar navbar-expand-md navbar-dark"
+      style="background-color: #712cf9; padding: 20px"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/" title="Homepage">
+          <img
+            class="img-fluid"
+            src="/public/icons/chart.svg"
+           
+            alt="logo"
+         
+          />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav" style="font-weight: bold">
+            <a
+              class="nav-link"
+              href="/stock"
+              title="Check out market overview for today"
+              >Market Overview</a
+            >
+            <a
+              class="nav-link active"
+              aria-current="page"
+              href="/insider"
+              title="Insider trading page"
+              >Insider Trading</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container mt-5">
+      <div
+        class="mb-5"
+        style="background-color: white; padding: 25px; border-radius: 10px"
+      >
+        <h1>Insider trading</h1>
+        <p style="max-width: 700px">
+          Insider trading is the transfer of a company's securities by employees
+          with access to confidential or non-public information about the
+          company. It is illegal to engage in this activity without reporting to
+          the SEC and making transaction details open to the public. Insider
+          trading is prohibited to ensure a fair market for everyone,
+          encouraging the average investor to participate in the buying and
+          selling stocks. You can read more about insider trading
+          <a
+            href="https://www.investopedia.com/terms/i/insidertrading.asp"
+            target="_blank"
+            >here</a
+          >.
+        </p>
+
+        <p style="max-width: 700px" class="mb-5">
+          Here you can search for various public company's most recent SEC
+          filings. Each record will show the person or organization involved in
+          the transaction and the number of securities traded.
+        </p>
+
+        <div class="row">
+          <input
+            class="form-control"
+            style="max-width: 300px"
+            type="search"
+            placeholder="🔍 Search for insider info"
+            id="search_query"
+          />
+        </div>
+
+        <div class="row">
+          <ul
+            class="list-group mb-5"
+            id="search_results"
+            style="max-width: 300px"
+          ></ul>
+        </div>
+        
+      </div>
+
+      <hr />
+
+      <p>
+        Showing {{len .InsiderRecords}} of the most recent transactions filed
+        with the SEC
+      </p>
+      <ul class="list-group">
+        {{range .InsiderRecords}}
+        <li class="list-group-item">
+          <div class="row p-4">
+            <div class="col-md-7 mb-4">
+              <div class="mb-3">
+                <img
+                  src="https://financialmodelingprep.com/image-stock/{{.Symbol}}.png"
+                  alt="{{.CompanyName}} logo"
+                  class="img-fluid"
+                  width="50"
+                  height="50"
+                />
+                <span style="margin-left: 10px">{{.CompanyName}}</span>
+                <span class="text-secondary">{{.Symbol}}</span>
+              </div>
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-file-person"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M12 1a1 1 0 0 1 1 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"
+                  />
+                  <path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                </svg>
+                <span style="display: inline-block"> {{.Person}} </span>
+                <span class="text-secondary mb-3" style="display: block"
+                  >Position: <span> {{.PersonPosition}} </span></span
+                >
+              </div>
+              <span style="display: block"
+                >Transaction date: {{.TransactionDate}}</span
+              >
+              <span style="display: block">Date filed: {{.FilingDate}}</span>
+            </div>
+            <div class="col-md-5">
+              <span style="display: block"
+                >Securities owned:
+                <code style="color: black">{{.SecuritiesOwned}}</code>
+              </span>
+              <span style="display: block"
+                >Securities transacted:
+                <code style="color: black"
+                  >{{.SecuritiesTransacted}}</code
+                ></span
+              >
+              <span class="mt-3"
+                >Transaction type:
+                <code style="color: black">({{.FormType}})</code></span
+              >
+            </div>
+            <a
+              href="{{.SECLink}}"
+              target="_blank"
+              rel="noreferrer"
+              style="display: block"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-paperclip"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"
+                />
+              </svg>
+              SEC record</a
+            >
+            <a href="/insider/{{.SymbolToLowerCase}}"
+              >View {{.CompanyName}} insider trades</a
+            >
+          </div>
+        </li>
+        {{end}}
+      </ul>
+      <footer>
+        <p class="text-secondary mt-5" style="font-size: 14px">
+          
+          <a
+            style="text-decoration: none; color: inherit"
+            title="FMP Developer Documentation"
+            href="https://financialmodelingprep.com/developer/docs/"
+            target="_blank"
+            rel="noreferrer"
+            >Data provided by Financial Modeling Prep
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="inherit"
+              class="bi bi-box-arrow-up-right"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"
+              /></svg></a
+          ><br />This site is not intended for financial advice. Invest at your
+          own risk.
+        </p>
+        <p
+          class="text-secondary mb-5"
+          style="font-size: 14px; max-width: 600px"
+        >
+          All trademarks, logos, and brand names are the property of their
+          respective owners. All company, product, and service names used in
+          this website are for identification and informational purposes only.
+          Use of these names, trademarks, and brands does not imply endorsement.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

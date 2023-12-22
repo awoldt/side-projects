@@ -1,0 +1,106 @@
+@model DocsViewModel;
+
+@{
+   ViewBag.hasOgTags = true;
+   ViewData["Title"] = "DevMail: Docs";
+   
+   ViewData["ogTitle"] = "DevMail Documentation. Send Emails with Simple POST Requests.";
+   ViewData["ogUrl"] = "https://devmailapi.com/docs";
+   ViewData["ogDescription"] = "Discover how to send emails programmatically using POST requests with devmail's comprehensive documentation";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+<section class="mt-5">
+    <div class="container px-5 pb-5">
+        <div class="alert alert-info">
+            <img src="/imgs/icons/info-circle.svg" alt="info icon"/><p class="mb-0 mt-3">Keep in mind that all requests made to API must be a <u>POST</u> request</p>
+            <p class="mt-3 mb-0">Here's an example of a valid request: <b>https://devmailapi.com/send?msg=Hello world&to=bob@mail.com&key=[YOUR_KEY_HERE]</b>. Be sure to replace the key parameter with your API key.</p>
+        </div>
+        <h1 class="mb-3">Docs</h1>
+        <hr>
+        
+        <div class="mb-5">
+            <p>Sending emails are done through a single endpoint:</p>
+            <div class="mb-3 bg-light" id="endpoint_block"><span
+                    style="display: inline-block; margin-right: 20px"><b>POST</b></span> /send</div>
+            <p>When making a request, the following url queries must be present:</p>
+            <ul>
+                <li>
+                    <p><b class="text-gradient">key:</b> Represents your unique API key. Calls made to the server will
+                        authenticate your
+                        request with this key.</p>
+                </li>
+                <li>
+                    <p><b class="text-gradient">to:</b> A comma seperated string for each fo the recipients you wish to
+                        receive this email. You can add up to 3 addresses, all must be a valid email string.</p>
+                </li>
+                <li>
+                    <p><b class="text-gradient">msg: </b> The main text of the email. This string will be encoded on our
+                        server, meaning you can have spaces in the request url without having an error thrown.
+                    </p>
+                </li>
+            </ul>
+            <p>Optional queries: </p>
+            <ul>
+                <li>
+                    <p><b class="text-gradient">subject:</b> Sets the subject of the email. If this query is not supplied, the default "DevMail" subject will be added.</p>
+                </li>
+
+            </ul>
+
+        </div>
+        <div>
+            <p>A successful API call will return a response object in JSON format with the following properties:</p>
+            <pre class="mb-0">
+                <code>
+{
+    "status": 200,
+    "email_body": xxx,
+    "recipients": [xxx, xxx],
+    "remaining_calls": xxx
+}</code>
+
+            </pre>
+        </div>
+
+        <hr>
+        <p>Here are some thing to consider while sending emails</p>
+        <ul style="max-width: 800px;">
+            <li><p>
+Please be aware that all message URL queries will undergo automatic URL encoding. For instance, if you include the query "msg=hello how are you today," it will be transformed into "msg%3Dhello%20how%20are%20you%20today" automatically. You do not need to manually encode URLs before sending a request to the backend.</p></li>
+            <li>
+                <p>Every account is allotted a maximum of 100 API calls per day. There are no premium tiers or upgrades
+                    available to boost this limit. DevMail is not designed for high-demand scenarios, like companies
+                    sending out tens of thousands of emails daily. Its intended purpose is for smaller personal side
+                    projects or simply for experimentation.</p>
+            </li>
+            <li>
+                <p>All accounts will undergo a daily API call reset to 100, occurring precisely at 12:00 AM EST. You can
+                    keep track of how many API calls you have left for the day on your account page.</p>
+            </li>
+            <li>
+                <p>Emails are transmitted in plain text format rather than as HTML bodies. Consequently, using a custom
+                    HTML template with CSS will not display correctly in the recipient's email client.</p>
+            </li>
+            <li>
+                <p>You need a verified account to make API requests. After signing up, we'll send you a verification
+                    link to your email inbox. Any request made from an account that is not verified will be rejected.
+                </p>
+            </li>
+        </ul>
+
+        @if (Model.UserData == null)
+        {
+            <div class="btn btn-danger mt-5"><a href="/register" style="color: white;">Get Your Free API Key</a></div>
+        }
+        else
+        {
+            <div class="btn btn-danger mt-5"><a href="/account" style="color: white;">Go to Account</a></div>
+
+        }
+    </div>
+</section>

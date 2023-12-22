@@ -1,0 +1,82 @@
+@font-face {
+  font-family: Rubik-Bold;
+  src: url("/public/Rubik-Bold.ttf");
+}
+
+body {
+  background-color: rgb(220, 220, 220, 0.2);
+}
+.navbar {
+  background-color: #712cf9;
+  padding: 20px;
+}
+.related-stock-price-increase {
+  font-size: 20px;
+  float: right;
+  color: green;
+}
+.related_stock_price {
+  font-size: 20px;
+  color: black;
+}
+.news_headline {
+  font-size: 18px;
+  font-family: "Trebuchet MS", sans-serif;
+  margin-bottom: 0px;
+}
+.news_link {
+  text-decoration: none;
+  color: black;
+}
+.company_quote_change_increase {
+  color: green;
+  font-size: 25px;
+}
+.company_quote_change_decrease {
+  color: red;
+  font-size: 25px;
+}
+.related_stock_card {
+  display: inline-block;
+  width: 300px;
+  height: 180px;
+  border: 1.5px solid grey;
+}
+.related_stock_change_decrease {
+  font-size: 20px;
+  float: right;
+  color: red;
+}
+.related_stock_company_logo {
+  width: 45px;
+  height: 45px;
+}
+
+#corp_section {
+  background-color: white;
+  padding: 25px;
+  border-radius: 10px;
+}
+
+#related_stocks_section {
+  background-color: rgb(255, 255, 255, 0.9);
+  padding: 25px;
+  border-radius: 10px;
+}
+#company_news_section {
+  background-color: white;
+  padding: 25px;
+  border-radius: 10px;
+}
+#related_stocks_header {
+  display: inline;
+  margin-left: 10px;
+}
+#company_news_header {
+  display: inline-block;
+  margin-left: 10px;
+}
+#fmp_link {
+  text-decoration: none;
+  color: inherit;
+}

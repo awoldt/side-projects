@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/public/styles/global.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
+      integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA=="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/public/scripts/responsiveRelatedStocks.js" defer></script>
+    <script src="/public/scripts/search.js" defer></script>
+
+   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {{.CompanyProfile.Name}} ({{.CompanyProfile.Symbol}}) Stock Price and 30
+      Day Chart
+    </title>
+    <meta
+      name="description"
+      content="Get the latest {{.CompanyProfile.Name}} stock price and chart. View insider trading data also along with recent {{.CompanyProfile.Name}} news"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta
+      property="og:title"
+      content="{{.CompanyProfile.Name}} ({{.CompanyProfile.Symbol}}) Stock Price Today"
+    />
+    <meta
+      property="og:description"
+      content="Discover {{.CompanyProfile.Name}}'s stock price today along with 30 day chart"
+    />
+    <meta property="og:type" content="website" />
+ 
+    <meta name="twitter:card" content="summary" />
+  
+    <meta
+      name="twitter:title"
+      content="{{.CompanyProfile.Name}} Stock Price and 30 Day Chart"
+    />
+    <meta
+      name="twitter:description"
+      content="Discover {{.CompanyProfile.Name}}'s stock price today along with 30 day chart"
+    />
+  
+
+    <link rel="icon" type="image/svg" href="/public/favicon.svg">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/" title="Homepage">
+          <img
+            class="img-fluid"
+            src="/public/icons/chart.svg"
+           
+            alt="logo"
+         
+          />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav" style="font-weight: bold">
+            <a
+              class="nav-link"
+              href="/stock"
+              title="Check out market overview for today"
+              >Market Overview</a
+            >
+            <a class="nav-link" href="/insider" title="Insider trading page"
+              >Insider Trading</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container mt-5">
+      <input
+        class="form-control"
+        type="search"
+        placeholder="🔍 Search any stock"
+        style="max-width: 300px"
+        id="search_query"
+      />
+      <ul class="list-group mb-5" style="max-width: 300px" id="search_results"></ul>
+
+     
+        <section class="mt-5 mb-5" id="corp_section" itemscope itemtype="https://schema.org/Corporation">
+          <div class="row">
+            <div class="col-lg-5">
+              <img
+                src="https://financialmodelingprep.com/image-stock/{{.CompanyProfile.Symbol}}.png"
+                class="img-fluid"
+                alt="{{.CompanyProfile.Name}} logo"
+                itemprop="logo"
+                
+              />
+              <h1 itemprop="name">{{.CompanyProfile.Name}}</h1>
+              <span class="text-secondary">
+                <span itemProp="tickerSymbol">
+                  {{.CompanyProfile.Symbol}}
+                </span>
+                | {{.CompanyProfile.Exchange}}
+              </span>
+              <div>
+                <div>
+                  <div style="margin-bottom: 25px">
+                    <span style="font-size: 40px">
+                      ${{.CompanyQuote.PriceClean}}
+                    </span>
+
+                    {{if (gt .CompanyQuote.Change 0.0)}}
+                    <img
+                      src="/public/icons/arrow-up-short.svg"
+                      alt="arrow up icon"
+                    />
+                    <span class="company_quote_change_increase">
+                      {{.CompanyQuote.ChangeClean}}
+                      <span> ({{.CompanyQuote.ChangePercentageClean}}%) </span>
+                    </span>
+                    {{end}} {{if (lt .CompanyQuote.Change 0.0)}}
+                    <img
+                      src="/public/icons/arrow-down-short.svg"
+                      alt="arrow down icon"
+                    />
+                    <span class="company_quote_change_decrease">
+                      ${{.CompanyQuote.ChangeClean}}
+                      <span> ({{.CompanyQuote.ChangePercentageClean}}%) </span>
+                    </span>
+                    {{end}}
+                  </div>
+                  <div class="list-group">
+                    <div class="list-group-item">
+                      <img src="/public/icons/cash-stack.svg" alt="cash icon" />
+                      <b>Market Cap</b>
+                      <span style="float: right">
+                        ${{.CompanyProfile.Market_cap}}
+                      </span>
+                    </div>
+
+                    {{if ne .CompanyProfile.Website ""}}
+                    <div class="list-group-item">
+                      <img src="/public/icons/window.svg" alt="website icon" />
+                      <b>Website</b>
+                      <a
+                        href="{{.CompanyProfile.Website}}"
+                        target="_blank"
+                        rel="noreferrer"
+                        style="float: right"
+                        itemprop="url"
+                      >
+                        {{if ne .CompanyProfile.WebsiteClean ""}}
+                        {{.CompanyProfile.WebsiteClean}} {{else}}
+                        {{.CompanyProfile.Website}} {{end}}
+                      </a>
+                    </div>
+                    {{end}} {{if ne .CompanyProfile.Address ""}}
+                    <div class="list-group-item">
+                      <img
+                        src="/public/icons/geo-alt.svg"
+                        alt="location icon"
+                      />
+                      <b>Address</b>
+                      <span style="float: right" itemProp="address">
+                        {{.CompanyProfile.Address}}
+                      </span>
+                    </div>
+                    {{end}} {{if ne .CompanyProfile.City ""}}
+                    <div class="list-group-item">
+                      <img
+                        src="/public/icons/building.svg"
+                        alt="building icon"
+                      />
+                      <b>City</b>
+                      <span style="float: right">
+                        {{.CompanyProfile.City}}
+                      </span>
+                    </div>
+                    {{end}} {{if ne .CompanyProfile.State ""}}
+                    <div class="list-group-item">
+                      <img src="/public/icons/flag-fill.svg" alt="flag icon" />
+                      <b>State</b>
+                      <span style="float: right">
+                        {{.CompanyProfile.State}}
+                      </span>
+                    </div>
+                    {{end}} {{if ne .CompanyProfile.Ceo ""}}
+                    <div class="list-group-item">
+                      <img
+                        src="/public/icons/person-fill.svg"
+                        alt="person icon"
+                      />
+                      <b>CEO</b>
+                      <span style="float: right">
+                        {{.CompanyProfile.Ceo}}
+                      </span>
+                    </div>
+                    {{end}} {{if ne .CompanyProfile.Phone ""}}
+                    <div class="list-group-item">
+                      <img
+                        src="/public/icons/telephone-fill.svg"
+                        alt="telephoneicon"
+                      />
+                      <b>Phone</b>
+                      <span style="float: right" itemProp="telephone">
+                        {{.CompanyProfile.Phone}}
+                      </span>
+                    </div>
+                    {{end}} {{if ne .CompanyProfile.Num_of_employees ""}}
+                    <div class="list-group-item">
+                      <img
+                        src="/public/icons/employee.svg"
+                        alt="employee icon"
+                      />
+                      <b>Employees</b>
+                      <span style="float: right" itemProp="numberOfEmployees">
+                        {{.CompanyProfile.Num_of_employees}}
+                      </span>
+                    </div>
+                    {{end}} {{if ne .CompanyProfile.Description ""}}
+                    <div class="accordion mt-3" id="accordionExample">
+                      <div class="accordion-item">
+                        <div class="accordion-header" id="headingOne">
+                          <button
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne"
+                            aria-expanded="true"
+                            aria-controls="collapseOne"
+                          >
+                            <img
+                              src="/public/icons/info-square-fill.svg"
+                              alt="more information icon"
+                            />
+                            <span style="margin-left: 10px">About</span>
+                          </button>
+                        </div>
+                        <div
+                          id="collapseOne"
+                          class="accordion-collapse collapse"
+                          aria-labelledby="headingOne"
+                          data-bs-parent="#accordionExample"
+                        >
+                          <div class="accordion-body">
+                            <p itemprop="description">
+                              {{.CompanyProfile.Description}}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {{end}} {{if gt (len .KeyExecutives) 0}}
+                    <div class="accordion mt-3" id="key_execs">
+                      <div class="accordion-item">
+                        <div class="accordion-header" id="headingTwo">
+                          <button
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo"
+                            aria-expanded="true"
+                            aria-controls="headingTwo"
+                          >
+                            <img
+                              src="/public/icons/people.svg"
+                              alt="people icon"
+                            />
+                            <span style="margin-left: 10px"
+                              >Key Executives</span
+                            >
+                          </button>
+                        </div>
+                        <div
+                          id="collapseTwo"
+                          class="accordion-collapse collapse"
+                          aria-labelledby="headingTwo"
+                          data-bs-parent="#key_execs"
+                        >
+                          <div class="accordion-body">
+                            {{range .KeyExecutives}}
+                            <span
+                              style="display: block"
+                              itemprop="employee"
+                              itemscope
+                              itemtype="https://schema.org/Person"
+                              class="mb-4"
+                            >
+                              <span itemprop="name" style="display: block"
+                                >{{.Name}}</span
+                              >
+                              <span
+                                style="display: block"
+                                itemprop="jobTitle"
+                                class="text-secondary"
+                                >{{.Title}}</span
+                              >
+                            </span>
+                            {{end}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {{end}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-7" style="margin-top: 100px">
+              {{if ne .ChartData.DescriptionText ""}}
+              <p class="text-center">{{.ChartData.DescriptionText}}</p>
+              {{end}}
+              <canvas id="myChart" width="400" height="200"></canvas>
+              <ul class="list-group mx-auto mt-5" style="width: 100%">
+                <li class="list-group-item bg-light" style="border: none">
+                  <b>Day low</b
+                  ><span style="float: right">${{.CompanyQuote.DayHigh}}</span>
+                </li>
+
+                <li class="list-group-item" style="border: none">
+                  <b>Day high</b
+                  ><span style="float: right">${{.CompanyQuote.DayLow}}</span>
+                </li>
+
+                <li class="list-group-item bg-light" style="border: none">
+                  <b>Year low</b
+                  ><span style="float: right">${{.CompanyQuote.YearLow}}</span>
+                </li>
+
+                <li class="list-group-item" style="border: none">
+                  <b>Year high</b
+                  ><span style="float: right">${{.CompanyQuote.YearHigh}}</span>
+                </li>
+
+                <li class="list-group-item bg-light" style="border: none">
+                  <b>EPS</b
+                  ><span style="float: right">${{.CompanyQuote.EPS}}</span>
+                </li>
+
+                {{if ne .CompanyQuote.SharesOutstanding 0}}
+                <li class="list-group-item" style="border: none">
+                  <b>Shares outstanding</b
+                  ><span style="float: right"
+                    >{{.CompanyQuote.SharesOutstanding}}</span
+                  >
+                </li>
+                {{end}}
+              </ul>
+            </div>
+          </div>
+
+          {{if ne .CompanyProfile.InsiderPageLink ""}}
+          <p class="text-muted mt-4 mb-1">Extra resources</p>
+          <a
+            href="/insider/{{.CompanyProfile.SymbolLowerCase}}"
+            title="View recent {{.CompanyProfile.Name}} Insider Records with SEC"
+          >
+            <div class="btn" style="background-color: rgb(113, 44, 249, 0.2)">
+              <img
+                src="/public/icons/person-lines-fill.svg"
+                alt="insider trading icon"
+              />
+              {{.CompanyProfile.Symbol}} Insider Records
+            </div>
+          </a>
+
+          {{end}}
+        </section>
+      
+
+      {{if gt (len .RelatedStocks) 0}}
+      <hr />
+
+      <section class="mt-5 mb-5" id="related_stocks_section">
+        <img src="/public/icons/back-heading.svg" alt="related stocks icon" />
+        <h2 id="related_stocks_header">Related Stocks</h2>
+
+        <div class="row mt-4 justify-content-center">
+          {{range .RelatedStocks}}
+          <div class="related_stock_col" style="background-color: white">
+            <a
+              href="/stock/{{.TickerLowerCase}}"
+              title="View {{.Name}} stock price today"
+            >
+              <div class="card m-2 related_stock_card">
+                <div class="card-body">
+                  <img
+                    src="https://financialmodelingprep.com/image-stock/{{.Ticker}}.png" 
+                    alt="{{.Name}} logo"
+                    class="related_stock_company_logo"
+                  />
+
+                  <div class="card-title">
+                    <b style="font-family: Rubik-Bold"> {{.Name}} </b>
+                  </div>
+                  <div class="card-subtitle text-muted">
+                    {{.Ticker}} | {{.Exchange}}
+                  </div>
+                  <div class="card-text mt-3">
+                    <span class="related_stock_price">${{.Price}}</span>
+                    {{if gt .Change 0.0}}
+                    <span class="related-stock-price-increase">
+                      <img
+                        src="/public/icons/arrow-up-short.svg"
+                        alt="money increase icon"
+                      />
+
+                      ${{.ChangeClean}}
+                    </span>
+
+                    {{end}} {{if lt .Change 0.0}}
+                    <span class="related_stock_change_decrease">
+                      <img
+                        src="/public/icons/arrow-down-short.svg"
+                        alt="money decrease icon"
+                      />
+
+                      ${{.ChangeClean}}
+                    </span>
+
+                    {{end}}
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          {{end}}
+        </div>
+      </section>
+      {{end}} {{if gt (len .StockNews) 0}}
+
+      <hr />
+
+      <section class="mt-5 mb-5" id="company_news_section">
+        <img src="/public/icons/newspaper-heading.svg" alt="newspaper icon" />
+        <h2 id="company_news_header">{{.CompanyProfile.Name}} News</h2>
+        <div class="p-2 mt-4">
+          {{range .StockNews}}
+          <div
+            itemscope
+            itemtype="https://schema.org/NewsArticle"
+            style="margin-bottom: 35px"
+          >
+            <a
+              href="{{.Url}}"
+              itemprop="url"
+              target="_blank"
+              rel="noreferrer"
+              class="news_link"
+            >
+              <p itemprop="headline" class="news_headline">{{.Title}}</p>
+              <span class="text-secondary" style="display: block">
+                <img src="/public/icons/newspaper.svg" alt="newspaper icon" />
+                <span
+                  itemprop="author"
+                  itemscope
+                  itemtype="https://schema.org/Organization"
+                >
+                  <span itemprop="name">{{.Site}}</span>
+                </span>
+                &#183;
+                <img src="/public/icons/calendar3.svg" alt="calandar icon" />
+                <span itemprop="datePublished"> {{.Date}}</span>
+              </span>
+              <p>{{.Text}}</p>
+            </a>
+          </div>
+          {{end}}
+        </div>
+      </section>
+      {{end}}
+
+      <footer>
+        <p class="text-secondary mt-5" style="font-size: 14px">
+          <a
+            title="FMP Developer Documentation"
+            href="https://financialmodelingprep.com/developer/docs/"
+            target="_blank"
+            rel="noreferrer"
+            id="fmp_link"
+            >Data provided by Financial Modeling Prep
+            <img
+              src="/public/icons/box-arrow-up-right.svg"
+              alt="link icon" /></a
+          ><br />This site is not intended for financial advice. Invest at your
+          own risk.
+        </p>
+        <p
+          class="text-secondary mb-5"
+          style="font-size: 14px; max-width: 600px"
+        >
+          All trademarks, logos, and brand names are the property of their
+          respective owners. All company, product, and service names used in
+          this website are for identification and informational purposes only.
+          Use of these names, trademarks, and brands does not imply endorsement.
+        </p>
+      </footer>
+    </div>
+    <script>
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const x = {{.ChartData.Historical }}
+
+        const prices = [...x].map(y => { return y.Close }).reverse()
+        const dates = [...x].map(y => { return y.Date }).reverse()
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: dates,
+            datasets: [{
+
+              data: prices,
+              borderColor: prices[0] > prices[prices.length - 1] ? 'red' : 'green',
+              borderWidth: 3,
+              fill: {
+                target: "origin",
+                above: prices[0] > prices[prices.length - 1] ?
+                  "rgb(255, 0, 0, .5)" :
+                  "rgb(0,128,0, .5)",
+              },
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: false,
+                display: true,
+              },
+              x: {
+                beginAtZero: true,
+                display: false,
+              },
+            },
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+          },
+        });
+      })
+    </script>
+  </body>
+</html>

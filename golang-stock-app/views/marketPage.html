@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/public/styles/global.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/public/scripts/search.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Market Overview</title>
+
+
+    <meta
+      name="description"
+      content="Stock coverage on all sectors of the economy along with the biggest gainers and losers in the market today"
+    />
+    <meta name="robots" content="index, follow" />
+  
+   
+    
+    <meta property="og:title" content="Stock Market Coverage Today " />
+    <meta
+      property="og:description"
+      content="Discover market trends and the most popular stocks people are talking about"
+    />
+    <meta property="og:type" content="website" />
+   
+    <meta name="twitter:card" content="summary" />
+    
+    <meta
+      name="twitter:description"
+      content="Discover market trends and the most popular stocks people are talking about"
+    />
+    
+
+    <link rel="icon" type="image/svg" href="/public/favicon.svg">
+  </head>
+
+  <body style="background-color: rgb(220, 220, 220, 0.2)">
+    <nav
+      class="navbar navbar-expand-md navbar-dark"
+      style="background-color: #712cf9; padding: 20px"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/" title="Homepage">
+          <img
+            class="img-fluid"
+            src="/public/icons/chart.svg"
+           
+            alt="logo"
+         
+          />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav" style="font-weight: bold">
+            <a
+              class="nav-link active"
+              aria-current="page"
+              href="/stock"
+              title="Check out market overview for today"
+              >Market Overview</a
+            >
+            <a class="nav-link" href="/insider" title="Insider trading page"
+              >Insider Trading</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container pt-5">
+      <input
+        class="form-control"
+        style="max-width: 300px"
+        type="search"
+        placeholder="🔍 Search any stock"
+        id="search_query"
+      />
+      <ul
+        class="list-group mb-5"
+        id="search_results"
+        style="max-width: 300px"
+      ></ul>
+
+      <section
+        style="background-color: white; padding: 25px; border-radius: 10px"
+        class="mt-5 mb-5"
+      >
+        <div class="text-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            fill="green"
+            class="bi bi-graph-up-arrow"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z"
+            />
+          </svg>
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            fill="red"
+            class="bi bi-graph-down-arrow"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M0 0h1v15h15v1H0V0Zm10 11.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-1 0v2.6l-3.613-4.417a.5.5 0 0 0-.74-.037L7.06 8.233 3.404 3.206a.5.5 0 0 0-.808.588l4 5.5a.5.5 0 0 0 .758.06l2.609-2.61L13.445 11H10.5a.5.5 0 0 0-.5.5Z"
+            />
+          </svg>
+        </div>
+
+        <h1 class="text-center" style="font-family: Rubik-Bold">
+          Market's Biggest Gainers and Losers
+        </h1>
+        <p style="max-width: 500px" class="mx-auto text-center">
+          {{(index .GainerLoserData.Gainers 0).Name }} has today's most
+          significant gains with a
+          <span style="color: green"
+            ><svg
+              style="margin-right: -5px"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-arrow-up"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"
+              />
+            </svg>
+            {{(index .GainerLoserData.Gainers 0).ChangePercentageClean }}%</span
+          >
+          increase in its stock price. {{(index .GainerLoserData.Losers 0).Name
+          }} has the most significant drop with a
+          <span style="color: red"
+            ><svg
+              style="margin-right: -5px"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-arrow-down"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"
+              />
+            </svg>
+            {{(index .GainerLoserData.Losers 0).ChangePercentageClean }}%</span
+          >
+          decrease for the day.
+        </p>
+        <div class="row mb-5 mt-5 text-center">
+          <div class="col-lg-6 mb-2">
+            <ul class="list-group">
+              {{range .GainerLoserData.Gainers}}
+              <li
+                class="list-group-item"
+                style="background-color: rgb(0, 128, 0, 0.1)"
+              >
+                <div>
+                  <a
+                    href="/stock/{{.SymbolLowerCase}}"
+                    title="View {{.Name}} stock price and news"
+                    style="text-decoration: none"
+                  >
+                    <span> {{.Name}} </span>(<span> {{.Symbol}} </span>)
+                  </a>
+                  <span style="color: green; margin-left: 10px"
+                    >+${{.ChangeClean}} ({{.ChangePercentageClean}}%)</span
+                  >
+                </div>
+              </li>
+              {{end}}
+            </ul>
+          </div>
+          <div class="col-lg-6">
+            <ul class="list-group">
+              {{range .GainerLoserData.Losers}}
+              <li
+                class="list-group-item"
+                style="background-color: rgb(255, 0, 0, 0.1)"
+              >
+                <div>
+                  <a
+                    href="/stock/{{.SymbolLowerCase}}"
+                    title="View {{.Name}} stock price and news"
+                    style="text-decoration: none"
+                  >
+                    <span> {{.Name}} </span>(<span> {{.Symbol}} </span>)
+                  </a>
+                  <span style="color: red; margin-left: 10px"
+                    >-${{.ChangeClean}} ({{.ChangePercentageClean}}%)</span
+                  >
+                </div>
+              </li>
+              {{end}}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <hr />
+      <div class="row">
+        <div class="col-lg-6 text-center">
+          <section
+            style="background-color: white; padding: 25px; border-radius: 10px"
+            class="mt-5 mb-5"
+          >
+            <div style="margin-bottom: 25px">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="40"
+                fill="currentColor"
+                class="bi bi-speedometer2 mx-auto"
+                viewBox="0 0 16 16"
+                style="display: block"
+              >
+                <path
+                  d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z"
+                />
+              </svg>
+              <h2
+                style="display: inline; font-family: Rubik-Bold"
+                class="market_title"
+              >
+                Sector Performance
+              </h2>
+            </div>
+
+            <div class="row justify-content-center">
+              {{range .SectorData}}
+
+              <div class="col-4 text-center mt-4 mb-4">
+                <span style="font-family: Rubik-Bold">{{.Sector}} </span>{{if
+                (gt .ChangePercentageFloat 0.0)}}
+                <div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="green"
+                    class="bi bi-arrow-up"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <span style="color: green">{{.ChangePercentage}}</span>
+                </div>
+
+                {{end}} {{if (lt .ChangePercentageFloat 0.0)}}
+                <div></div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="red"
+                  class="bi bi-arrow-down"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"
+                  />
+                </svg>
+
+                <div>
+                  <span style="color: red">{{.ChangePercentage}}</span>
+                </div>
+
+                {{end}}
+              </div>
+
+              {{end}}
+            </div>
+          </section>
+        </div>
+        <div class="col-lg-6 text-center">
+          {{if gt (len .MostActiveStocks) 0}}
+          <section
+            style="background-color: white; padding: 25px; border-radius: 10px"
+            class="mt-5 mb-5"
+          >
+            <div style="margin-bottom: 25px">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="40"
+                fill="currentColor"
+                class="bi bi-fire mx-auto"
+                viewBox="0 0 16 16"
+                style="display: block"
+              >
+                <path
+                  d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16Zm0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15Z"
+                />
+              </svg>
+              <h2 style="display: inline; font-family: Rubik-Bold">
+                Most Active Stocks
+              </h2>
+            </div>
+
+            <div class="row">
+              {{range .MostActiveStocks}}
+              <div class="col-4 text-center mt-4 mb-4">
+                <a
+                  style="text-decoration: none"
+                  href="/stock/{{.Symbol}}"
+                  title="{{.Name}} stock price today"
+                >
+                  <div class="text-secondary" style="font-family: Rubik-Bold">
+                    {{.Name}}
+                  </div>
+                </a>
+              </div>
+              {{end}}
+            </div>
+          </section>
+          {{end}}
+        </div>
+      </div>
+
+      <hr />
+
+      <section
+        style="background-color: white; padding: 25px; border-radius: 10px"
+        class="mt-5 mb-5"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="40"
+          height="40"
+          fill="currentColor"
+          class="bi bi-newspaper"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5v-11zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.5.497.5H12z"
+          />
+          <path
+            d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z"
+          />
+        </svg>
+
+        <h2 style="display: inline; font-family: Rubik-Bold">Market News</h2>
+
+        {{range .MarketNews}}
+        <div
+          itemscope
+          itemtype="https://schema.org/NewsArticle"
+          class="mt-3 mb-3"
+        >
+          <a
+            style="text-decoration: none; color: black"
+            href="{{.Url}}"
+            target="_blank"
+            rel="noreferrer"
+            itemprop="url"
+          >
+            <div class="row">
+              <div class="col-md-3">
+                <img
+                  src="{{.Image}}"
+                  alt="{{.Site}} article image"
+                  height="150"
+                  width="300"
+                  class="img-fluid"
+                />
+              </div>
+              <div class="col-md-9">
+                <p
+                  style="
+                    font-size: 18px;
+                    font-family: 'Trebuchet MS', sans-serif;
+                  "
+                  itemprop="headline"
+                >
+                  {{.Title}}
+                </p>
+                <span class="text-secondary" style="display: block">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-newspaper"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5v-11zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.5.497.5H12z"
+                    />
+                    <path
+                      d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z"
+                    />
+                  </svg>
+
+                  <span
+                    itemprop="author"
+                    itemscope
+                    itemtype="https://schema.org/Organization"
+                  >
+                    <span itemprop="name">{{.Site}}</span>
+                  </span>
+                  &#183;
+
+                  <span itemprop="datePublished"> {{.PublishedDateClean}}</span>
+                </span>
+                <p>{{.Text}}</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        {{end}}
+      </section>
+      <footer>
+        <p class="text-secondary mt-5" style="font-size: 14px">
+          
+          <a
+            style="text-decoration: none; color: inherit"
+            title="FMP Developer Documentation"
+            href="https://financialmodelingprep.com/developer/docs/"
+            target="_blank"
+            rel="noreferrer"
+            >Data provided by Financial Modeling Prep
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="inherit"
+              class="bi bi-box-arrow-up-right"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"
+              /></svg></a
+          ><br />This site is not intended for financial advice. Invest at your
+          own risk.
+        </p>
+        <p
+          class="text-secondary mb-5"
+          style="font-size: 14px; max-width: 600px"
+        >
+          All trademarks, logos, and brand names are the property of their
+          respective owners. All company, product, and service names used in
+          this website are for identification and informational purposes only.
+          Use of these names, trademarks, and brands does not imply endorsement.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

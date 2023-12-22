@@ -1,0 +1,54 @@
+@{
+    ViewData["Title"] = "Create a Free Account";
+}
+
+<section>
+    <div class="container px-5 pb-5">
+
+        @if (TempData["message"] != null)
+        {
+            @if (TempData["status"] == "error")
+            {
+                <div class="alert alert-danger mt-4">
+                    <p class="mb-0">@TempData["message"]</p>
+                </div>
+            }
+            @if (TempData["status"] == "success")
+            {
+                <div class="alert alert-success  mt-4">
+                    <p class="mb-0">@TempData["message"]</p>
+                </div>
+            }
+        }
+
+        <h1 class="mb-0 mt-5" style="font-size: 45px;">
+            Create an Account
+        </h1>
+        <p>Start sending emails. Create a free account.</p>
+        <form method="post" asp-controller="Register" asp-action="Index">
+            <div style="max-width: 600px;">
+                <div class="mb-3">
+                    <label for="email_input" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email_input" name="Email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="username_input" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username_input" name="Username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password_input" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password_input" name="Password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password_input_c" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="password_input_c" name="ConfirmPassword" required>
+                </div>
+                <button class="btn btn-danger" type="submit">Create Account</button>
+            </div>
+        </form>
+
+        <a href="/login" title="Login to your account" style="display: block; margin-top: 25px">Already have an
+            account?</a>
+
+    </div>
+</section>
