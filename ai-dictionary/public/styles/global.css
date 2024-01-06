@@ -1,0 +1,215 @@
+/* overrides bootstrap css file */
+p,
+span {
+  color: black !important;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: black !important;
+}
+li {
+  color: black !important;
+}
+code {
+  color: black !important;
+}
+.container {
+  padding-top: 50px;
+}
+h2 {
+  font-size: 22px !important;
+}
+h3 {
+  font-size: 20px !important;
+}
+/* end of overriding */
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 30px !important;
+  }
+  #highlights-row {
+    margin-top: 25px;
+  }
+}
+
+@media (min-width: 769px) {
+  p {
+    font-size: 17px !important;
+  }
+  #highlights-row {
+    margin-top: 100px;
+  }
+}
+
+#word_title {
+  margin-bottom: 10px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+#word_part_of_speech {
+  color: rgba(33, 37, 41, 0.75);
+  font-style: italic;
+}
+
+#footer {
+  margin-top: 50px;
+  font-size: 14px;
+  margin-bottom: 50px;
+}
+.footer_text {
+  margin-bottom: 0px;
+  display: inline-block;
+  margin-left: 5px;
+  color: rgba(33, 37, 41, 0.75) !important;
+}
+#ai_generation_claim {
+  margin-left: 19px;
+}
+#search_results_title {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+#homepage_title_text {
+  color: rgb(120, 194, 173) !important;
+  font-size: 55px;
+  font-family: Tahoma, sans-serif;
+  padding-top: 50px;
+}
+.word-page-section {
+  text-decoration: underline;
+  margin-top: 30px;
+}
+.search-results-text {
+  font-size: 20px;
+  text-decoration: none;
+}
+.syn-anto-div {
+  display: inline-block;
+  background-color: rgba(212, 212, 212, 0.4);
+  padding: 5px;
+  margin-right: 10px;
+  color: black;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.highlight-col {
+  max-width: 350px !important;
+  margin: auto;
+}
+.generated-img {
+  margin-right: 25px;
+  margin-bottom: 25px;
+}
+#generated_imgs_div {
+  margin-top: 50px;
+}
+#nav_brand {
+  font-weight: 900;
+  margin-left: 5px;
+  color: white !important;
+}
+.recently-added-words-link-div {
+  width: fit-content;
+  margin-bottom: 30px;
+  padding: 10px;
+  border-radius: 8px;
+}
+.recently-added-words-link-div:hover {
+  background-color: rgb(120, 194, 173, 0.4);
+}
+.recently-added-word-name {
+  font-weight: 500;
+  font-size: 25px;
+}
+#recently-added-words-section {
+  margin-top: 25px;
+  padding: 10px;
+}
+.link-no-decoration {
+  text-decoration: none;
+}
+#homepage_about {
+  margin-top: 50px;
+  max-width: 1000px;
+}
+.social-media-share-btn {
+  cursor: pointer;
+  margin-right: 5px;
+}
+#social_share_div {
+  margin-top: 75px;
+}
+.social-btn-link {
+  text-decoration: none;
+}
+#github_link_div {
+  margin-bottom: 50px;
+}
+#github_link {
+  text-decoration: none;
+  color: grey;
+}
+.pagination-link {
+  background-color: RGB(120, 194, 173) !important;
+}
+.pagination-rightside {
+  float: right;
+}
+.pagination-leftside {
+  float: left;
+}
+.nav-link {
+  color: white !important;
+}
+.read-more-tag {
+  color: #007bff;
+  font-size: 13px;
+}
+.recently-added-word-img {
+  border-radius: 8px;
+  width: 100px;
+  height: 100px;
+}
+.browse-list-letter {
+  display: block;
+  font-weight: Bold;
+  font-size: 23px;
+}
+.browse-list-links {
+  display: block;
+  width: fit-content;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 18px;
+}
+.browse-list-letter-divs {
+  margin-bottom: 25px;
+}
+.other-word-link {
+  background-color: rgb(120, 194, 173, 0.3);
+  padding: 15px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: black;
+  margin-bottom: 10px;
+  width: fit-content;
+  display: inline-block;
+}
+#reference_links_ptag {
+  margin-bottom: 0px;
+}
+#reference_links_div {
+  margin-top: 10px;
+}
+.reference-link {
+  word-break: break-all;
+}

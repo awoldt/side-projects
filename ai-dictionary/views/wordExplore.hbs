@@ -1,0 +1,45 @@
+<div class="container">
+  <h1 class="mb-4">There are currently
+    {{{numOfWords}}}
+    words stored</h1>
+  <p>Our database is updated with a new word every 6 hours. Check the most
+    recent words added and browse others below!</p>
+  {{#if recentlyAddedWords}}
+    <h2 class="mb-4"><u>Recently Added</u></h2>
+    <div class="row">
+      {{#each recentlyAddedWords}}
+        <div class="col-lg-6">
+          <a href="/word/{{this.name}}" class="link-no-decoration">
+            <div class="recently-added-words-link-div row">
+              
+              <div>
+                <span class="recently-added-word-name">
+                  {{capitalize this.name}}
+                </span>
+                <p>
+                  {{this.definition}}
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+      {{/each}}
+    </div>
+
+  {{/if}}
+  <hr />
+  <h2><u>Browse</u></h2>
+  <div class="row">
+    {{#each browseList}}
+      <div class="col-lg-4 browse-list-letter-divs">
+        <span class="browse-list-letter">{{capitalize this._id.letter}}
+        </span>
+
+        {{#each this.words}}
+          <a href="/word/{{this}}" class="browse-list-links">{{this}}</a>
+        {{/each}}
+      </div>
+    {{/each}}
+  </div>
+</div>

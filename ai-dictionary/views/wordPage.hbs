@@ -1,0 +1,84 @@
+<div class="container" itemScope itemType="https://schema.org/DefinedTermSet">
+  <h1 id="word_title" itemProp="name">
+    {{capitalize word.name}}
+  </h1>
+
+  {{! DEFINITION}}
+  <h2 class="word-page-section">Definition</h2>
+  <p itemProp="description">{{word.definition}}</p>
+
+  {{! EXAMPLES}}
+  <h2 class="word-page-section">Examples</h2>
+  <ul>
+    {{#each word.examples}}
+      <li><p>{{this}}</p></li>
+    {{/each}}
+  </ul>
+
+  {{! SYNONYMS}}
+  {{#if word.synonyms}}
+    <h2 class="word-page-section">Synonyms</h2>
+    {{#each word.synonyms}}
+      <div class="syn-anto-div">
+        <span>{{this}}</span>
+      </div>
+    {{/each}}
+  {{/if}}
+
+  {{! ANTONYMS}}
+  {{#if word.antonyms}}
+    <h2 class="word-page-section">Antonyms</h2>
+    {{#each word.antonyms}}
+      <div class="syn-anto-div">
+        <span>{{this}}</span>
+      </div>
+    {{/each}}
+  {{/if}}
+
+  {{! HISTORY}}
+  {{#if word.history}}
+    <h2 class="word-page-section">History</h2>
+    {{#each word.history}}
+      <p>{{this}}</p>
+    {{/each}}
+  {{/if}}
+
+  {{! OTHER WORDS}}
+  <div>
+    {{#if otherWords}}
+    <p>Words nearby {{capitalize word.name}}</p>
+      {{#each otherWords}}
+       <a href="/word/{{this}}"><div class="other-word-link">{{capitalize this}}</div></a>
+      {{/each}}
+    {{/if}}
+  </div>
+
+  {{! REFERENCE LINKS}}
+  <div id="reference_links_div">
+    {{#if word.referenceLinks}}
+    <span id="reference_links_ptag">Helpful links</span>
+    <ol>
+      {{#each word.referenceLinks}}
+       <li><a href="{{this}}" target="_blank" class="reference-link">{{this}}</a></li>
+      {{/each}}
+    </ol>
+      
+    {{/if}}
+  </div>
+  
+  <footer id="footer">
+    <div>
+      <img src="/icons/clock-history.svg" />
+      <p class="footer_text">
+        Last updated on
+        {{word.lastUpdated}}
+      </p>
+    </div>
+    <div>
+      <p class="footer_text" id="ai_generation_claim">
+        This page was generated using AI and because of this some information
+        may be inaccurate
+      </p>
+    </div>
+  </footer>
+</div>
