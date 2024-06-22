@@ -1,0 +1,174 @@
+﻿@model HomepageDividendCalendarData;
+
+@{
+    ViewBag.title = "DiviDome - Explore Publicly Traded Stock Dividend Information";
+    ViewBag.canonical = "https://dividome.com";
+    ViewBag.description = "Unlock the Power of Dividends: Explore Comprehensive Dividend Data for Every Stock on the Market. Discover Dividend Payouts Month by Month in the Current Year. Your Ultimate Resource for In-Depth Stock Dividend Insights.";
+}
+
+@{
+    if (Model.TodaysDividends != null)
+    {
+        if(Model.TodaysDividends.Length == 0) {
+            <div class="text-center">
+                <span class="text-muted">@Model.TodaysDate</span>
+                <h1><strong>There are no dividends being payed out today</strong></h1>
+            </div>
+        }
+        else {
+            <div class="text-center mb-5 mt-5">
+                <h1>There are @Model.TodaysDividends.Length dividends being paid out today</h1>
+                <span>@Model.TodaysDate (UTC)</span>
+            </div>
+            
+            if (Model.TodaysDividends.Length > 10)
+            {
+                <table class="table table-striped" id="d_table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Company</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Declaration Date</th>
+                            <th scope="col">Record Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="todays_dividends_table">
+
+                        @for (int i = 0; i < 10; i++)
+                        {
+                            <tr>
+                                <th scope="row"><a href="/@Model.TodaysDividends[i].Symbol.ToLower()">@Model.TodaysDividends[i].Symbol</a></th>
+                                <td>$@Model.TodaysDividends[i].Amount</td>
+                                <td>@(Model.TodaysDividends[i].DeclarationDate == null ? "N/A" : Model.TodaysDividends[i].DeclarationDate)</td>
+                                <td>@(Model.TodaysDividends[i].RecordDate == null ? "N/A" : Model.TodaysDividends[i].RecordDate)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div id="d_btn">
+                    <button id="change_dividends_table_btn" class="btn btn-light">Show all dividends today</button>
+                </div>
+                <script>
+                    var x = @Html.Raw(Json.Serialize(Model.TodaysDividends));
+                    
+                    let action = 0;
+                    document.getElementById("change_dividends_table_btn").addEventListener("click", () => {
+                        if (action == 0) {
+                            ShowAllDividends();
+                            action++;
+                            document.getElementById("change_dividends_table_btn").innerText = "Show less";
+                        }
+                        else if (action == 1) {
+                            ShowDisplayDividends();
+                            action--;
+                            document.getElementById("change_dividends_table_btn").innerText = "Show all dividends";
+                        }
+                    })
+
+                    function ShowAllDividends() {
+
+                        const rowCount = document.getElementById("todays_dividends_table").rows.length;
+
+                        // Loop through the table rows in reverse order and delete each row
+                        for (var i = rowCount - 1; i >= 0; i--) {
+                            document.getElementById("todays_dividends_table").deleteRow(i);
+                        }
+
+                        x.forEach(y => {
+                            const tableRow = document.createElement("tr");
+                            const tableHead = document.createElement("th");
+                            const symbolLink = document.createElement("a");
+                            symbolLink.setAttribute("href", "/" + y.symbol);
+                            symbolLink.innerText = y.symbol;
+                            tableHead.setAttribute("scope", "row");
+                            tableHead.appendChild(symbolLink);
+                            tableRow.appendChild(tableHead);
+
+                            const td1 = document.createElement("td");
+                            td1.innerText = "$" + y.amount;
+                            tableRow.appendChild(td1);
+
+                            const td2 = document.createElement("td");
+                            td2.innerText = y.declarationDate === null ? "N/A" : y.declarationDate;
+                            tableRow.appendChild(td2);
+
+                            const td3 = document.createElement("td");
+                            td3.innerText = y.recordDate === null ? "N/A" : y.recordDate;
+                            tableRow.appendChild(td3);
+
+                            document.getElementById("todays_dividends_table").appendChild(tableRow);
+                        })
+                    }
+
+                    function ShowDisplayDividends() {
+                        const d = x.slice(0, 10);
+                        // Get the number of rows in the table
+                        var rowCount = document.getElementById("d_table").rows.length;
+
+                        // Iterate through the rows in reverse order and remove them
+                        for (var i = rowCount - 1; i > 0; i--) {
+                            document.getElementById("d_table").deleteRow(i);
+                        }
+
+                        d.forEach(y => {
+                            const tableRow = document.createElement("tr");
+                            const tableHead = document.createElement("th");
+                            const symbolLink = document.createElement("a");
+                            symbolLink.setAttribute("href", "/" + y.symbol);
+                            symbolLink.innerText = y.symbol;
+                            tableHead.setAttribute("scope", "row");
+                            tableHead.appendChild(symbolLink);
+                            tableRow.appendChild(tableHead);
+
+                            const td1 = document.createElement("td");
+                            td1.innerText = "$" + y.amount;
+                            tableRow.appendChild(td1);
+
+                            const td2 = document.createElement("td");
+                            td2.innerText = y.declarationDate === null ? "N/A" : y.declarationDate;
+                            tableRow.appendChild(td2);
+
+                            const td3 = document.createElement("td");
+                            td3.innerText = y.recordDate === null ? "N/A" : y.recordDate;
+                            tableRow.appendChild(td3);
+
+                            document.getElementById("todays_dividends_table").appendChild(tableRow);
+                        })
+                    }
+
+                </script>
+            }
+            else
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Symbol</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Declaration Date</th>
+                            <th scope="col">Record Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var x in Model.TodaysDividends)
+                        {
+                            <tr>
+                                <th scope="row"><a href="/@x.Symbol.ToLower()">@x.Symbol</a></th>
+                                <td>$@x.Amount</td>
+                                <td>@(x.DeclarationDate == null ? "N/A" : x.DeclarationDate)</td>
+                                <td>@(x.RecordDate == null ? "N/A" : x.RecordDate)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            }
+            <hr class="mt-5">
+    }
+    else {
+        <p>There was an error while getting today's dividends</p>
+    }
+
+    <p class="text-center" style="max-width: 900px; margin: auto; margin-bottom: 50px; margin-top: 50px; font-family: Noto Sans">DiviDome is the easiest way to discover payment dates for dividends. We understand that for many investors, the timing of dividend payouts can be critical. Whether you're looking for immediate income or planning your investment strategy around dividend payments, our platform provides you with detailed insights on when dividends are scheduled to be distributed</p>
+}

@@ -1,0 +1,86 @@
+﻿@using System.Linq
+@using System.Text.Json
+
+@{
+    ViewData["Title"] = "Home Page";
+    var numberOfSitesParsed = ViewData["num_of_sites_parsed"];
+    var tagsParsed = ViewData["tags_parsed"] as IEnumerable<string>;
+
+    ScrapeDetails? scrapeResults = null;
+    if (TempData["parse_results"] != null)
+    {
+        scrapeResults = JsonSerializer.Deserialize<ScrapeDetails>((string)TempData["parse_results"]);
+    }
+}
+
+@model ScrapeDetails
+
+<div>
+    @* SUCCESSFULY URL PARSE *@
+    @if (scrapeResults != null)
+    {
+        <div class="alert-success">URL Successfully Parsed!</div>
+        <p><b>ID</b>: @scrapeResults.Id</p>
+        <p><b>URL</b>: @scrapeResults.Url</p>
+        <p><b>Host</b>: @scrapeResults.Host</p>
+        <p><b>Parsed on</b>: @scrapeResults.ScrapedOn UTC</p>
+        <p><b>Time to parse</b>: @scrapeResults.TimeToComplete ms</p>
+
+        @if (tagsParsed != null)
+        {
+            <p><b>Tags parsed</b>: @string.Join(", ", tagsParsed.Select(t => t.ToString()))</p>
+        }
+
+
+        <div id="json_btns_container">
+            <div class="json-btn" style="background-color: red;">
+                <a href="@scrapeResults.S3FileUrlViewable" target="_blank">View JSON file</a>
+            </div>
+
+            <div class="json-btn" style="background-color: blue;">
+                <a href="@scrapeResults.S3FileUrlDownloadable">Download JSON file</a>
+            </div>
+        </div>
+
+        <a href="/" style="margin-top: 50px; display: block">Return home</a>
+    }
+    @* default homepage *@
+    else
+    {
+
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark-reasonable.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+        <script>
+            hljs.highlightAll();
+        </script>
+
+        <div id="top_info_div">
+            <div style="margin-bottom: 40px;">
+                <h1 style="margin-bottom: 0px;">HTML Tag Scraper</h1>
+                <p>Extract HTML tag information from any website showcasing attributes such as href,
+                    inner text, class, src, and more</p>
+                @if (numberOfSitesParsed != null)
+                {
+                    <p style="margin-top: 0px; color: red">@numberOfSitesParsed sites have been scraped!</p>
+                }
+            </div>
+
+            <partial name="_TagsForm" />
+        </div>
+        
+        <hr>
+        
+        <p>Use our free online tool to scrape websites and extract basic HTML tag information. This data can then be used
+            for
+            developers to build more feature-rich web scraping/parsing tools with the IDs and classes of certain tags being
+            clearly shown.</p>
+
+        <p>All pages parsed will return a downloadable JSON file containing information such as the number of tags, the
+            inner text of these tags, classes and ID attributes, and more.</p>
+
+
+        <partial name="_JsonExample" />
+    }
+</div>

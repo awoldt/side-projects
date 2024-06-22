@@ -1,0 +1,219 @@
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark-reasonable.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+<script>
+  hljs.highlightAll();
+</script>
+
+<div style="margin-top: 50px;">
+  <p class="mb0-ptag">
+    The JSON structure returned following the successful scraping of a valid URL will resemble this:</p>
+
+  <pre>
+        <code class="hljs language-json">{
+    "parsed_in_ms": {INT}, // time it took to parse site in milliseconds
+    "url": {STRING}, // the url parsed
+    "data": {ARRAY} // all data related to the tags
+}</code>
+    </pre>
+
+  <p class="mb0-ptag">The <i>data</i> property will contain all the information related to the specific tags on the HTML
+    page scraped.</p>
+
+  <pre>
+    <code class="hljs language-json">{
+    "tag": {STRING}, // the tag (p, h1, img, etc.)
+    "num_of_tags": {INT}, // the number of occurences of this specific tag
+    "results": {ARRAY} // the data on each specific tag
+}</code>
+</pre>
+
+  <p>Here is an example of a successful HTML scrape: (<a
+      href="https://ogp.me/">ogp.me</a>).<br>Only <i>&lt;p&gt;</i> and
+    <i>&lt;img&gt;</i> tags were selected.</p>
+  <pre>
+    <code  class="hljs language-json">{
+  "parsed_in_ms": 33,
+  "url": "https://ogp.me/",
+  "data": [
+    {
+      "tag": "p",
+      "num_of_tags": 42,
+      "results": [
+        {
+          "inner_text": "The Open Graph protocol enables any web page to become arich object in a social graph. For instance, this is used on Facebook to allowany web page to have the same functionality as any other object on Facebook.",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "While many different technologies and schemas exist and could be combinedtogether, there isn\u0027t a single technology which provides enough information torichly represent any web page within the social graph. The Open Graph protocolbuilds on these existing technologies and gives developers one thing toimplement. Developer simplicity is a key goal of the Open Graph protocol whichhas informed many of the technical design decisions.",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "To turn your web pages into graph objects, you need to add basic metadata toyour page. We\u0027ve based the initial version of the protocol onRDFa which means that you\u0027ll placeadditional \u0026lt;meta\u0026gt; tags in the \u0026lt;head\u0026gt; of your web page. The four requiredproperties for every page are:",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "As an example, the following is the Open Graph protocol markup for The Rock onIMDB:",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "The following properties are optional for any object and are generallyrecommended:",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "For example (line-break solely for display purposes):",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "The RDF schema (in Turtle) can be found at ogp.me/ns.",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "Some properties can have extra metadata attached to them.These are specified in the same way as other metadata with property andcontent, but the property will have extra :.",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "The og:image property has some optional structured properties:",
+          "class": null,
+          "id": null
+        },
+        { "inner_text": "A full image example:", "class": null, "id": null },
+        {
+          "inner_text": "The og:video tag has the identical tags as og:image. Here is an example:",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "The og:audio tag only has the first 3 properties available(since size doesn\u0027t make sense for sound):",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "If a tag can have multiple values, just put multiple versions of the same\u0026lt;meta\u0026gt; tag on your page. The first tag (from top to bottom) is givenpreference during conflicts.",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "Put structured properties after you declare their root tag. Wheneveranother root element is parsed, that structured propertyis considered to be done and another one is started.",
+          "class": null,
+          "id": null
+        },
+        { "inner_text": "For example:", "class": null, "id": null },
+        {
+          "inner_text": "means there are 3 images on this page, the first image is 300x300, the middleone has unspecified dimensions, and the last one is 1000px tall.",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "In order for your object to be represented within the graph, you need tospecify its type. This is done using the og:type property:",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "When the community agrees on the schema for a type, it is added to the listof global types. All other objects in the type system areCURIEs of the form",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "The global types are grouped into verticals. Each vertical has itsown namespace. The og:type values for a namespace are always prefixed withthe namespace and then a period.This is to reduce confusion with user-defined namespaced types which alwayshave colons in them.",
+          "class": null,
+          "id": null
+        },
+        { "inner_text": "og:type values:", "class": null, "id": null },
+        { "inner_text": "music.song", "class": null, "id": null },
+        { "inner_text": "music.album", "class": null, "id": null },
+        { "inner_text": "music.playlist", "class": null, "id": null },
+        { "inner_text": "music.radio_station", "class": null, "id": null },
+        { "inner_text": "og:type values:", "class": null, "id": null },
+        { "inner_text": "video.movie", "class": null, "id": null },
+        { "inner_text": "video.episode", "class": null, "id": null },
+        { "inner_text": "video.tv_show", "class": null, "id": null },
+        {
+          "inner_text": "A multi-episode TV show.The metadata is identical to video.movie.",
+          "class": null,
+          "id": null
+        },
+        { "inner_text": "video.other", "class": null, "id": null },
+        {
+          "inner_text": "A video that doesn\u0027t belong in any other category.The metadata is identical to video.movie.",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "These are globally defined objects that just don\u0027t fit into a vertical butyet are broadly used and agreed upon.",
+          "class": null,
+          "id": null
+        },
+        { "inner_text": "og:type values:", "class": null, "id": null },
+        {
+          "inner_text": "article - Namespace URI: https://ogp.me/ns/article#",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "book - Namespace URI: https://ogp.me/ns/book#",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "profile - Namespace URI: https://ogp.me/ns/profile#",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "website - Namespace URI: https://ogp.me/ns/website#",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "No additional properties other than the basic ones.Any non-marked up webpage should be treated as og:type website.",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "The following types are used when defining attributes in Open Graph protocol.",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "You can discuss the Open Graph Protocol inthe Facebook group or on the developer mailing list.It is currently being consumed by Facebook (see their documentation), Google (see their documentation), andmixi.It is being published by IMDb, Microsoft, NHL, Posterous, Rotten Tomatoes,TIME, Yelp, and many many others.",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "The open source community has developed a number of parsers and publishingtools. Let the Facebook group know if you\u0027ve built something awesome too!",
+          "class": null,
+          "id": null
+        },
+        {
+          "inner_text": "The Open Graph protocol was originally created at Facebook and is inspired by Dublin Core, link-rel canonical, Microformats, and RDFa. The specification described on this page is available under the Open Web Foundation Agreement, Version 0.9. This website is Open Source.",
+          "class": null,
+          "id": null
+        }
+      ]
+    },
+    {
+      "tag": "img",
+      "num_of_tags": 1,
+      "results": [
+        {
+          "src": "https://ogp.me/logo.png",
+          "alt": "Open Graph protocol logo",
+          "class": null,
+          "id": null
+        }
+      ]
+    }
+  ]
+}</code>
+</pre>
+</div>

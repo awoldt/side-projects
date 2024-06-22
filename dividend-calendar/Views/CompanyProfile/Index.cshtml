@@ -1,0 +1,67 @@
+@using dividend_calendar.ApplicationServices;
+@model CompanyProfile;
+
+@{
+    var headerTag = Services.GenerateCompanyProfilePageHeaderTags(Model.CompanyName, Model.CompanySymbol,
+    Model.CompanyDividends == null ? false : true, Model.CompanyDividends == null ? 0 :
+    Model.CompanyDividends.NumOfDividends);
+
+    ViewBag.title = headerTag.Title;
+    ViewBag.description = headerTag.Description;
+    ViewBag.canonical = headerTag.CanonicalTag;
+    ViewBag.ogTags = headerTag.OgMetaTags;
+    ViewBag.twitterOgTags = headerTag.TwitterOgMetaTags;
+}
+
+@{
+    <div itemscope itemtype="https://schema.org/Corporation">
+        @if (Model.CompanyDividends != null)
+        {
+            <div class="mt-5">
+                   @if(Model.CompanyLogo != null) {
+                      <div style="display: inline-block">
+                        <img src="@Model.CompanyLogo" class="company-logo img-fluid" itemprop="logo" alt="@Model.CompanyName logo"/>
+                      </div>
+                    } 
+               <div style="display: inline-block;">
+                    <h1 style="display: inline-block;"><span itemprop="name">@Model.CompanyName</span>
+                                    Dividend History</h1>
+                    <span class="text-muted" style="display: block;">(<span itemprop="tickerSymbol">@Model.CompanySymbol</span>)</span>
+                </div>
+            </div>
+            
+
+            if (Model.CompanyDividends.HasDividendToday)
+            {
+                @Html.Partial("~/Views/Shared/CompanyProfile/_HasDividendToday.cshtml")
+            }
+            else
+            {
+                @Html.Partial("~/Views/Shared/CompanyProfile/_NoDividendToday.cshtml")
+            }
+        }
+        else
+        {
+            <div class="text-center">
+                <h1 style="margin-bottom: 100px; margin-top: 50px">
+                    <strong>
+                        <span itemprop="name">@Model.CompanyName</span> stock does not pay dividends
+                    </strong>
+                </h1>
+
+                <p>Check these popular stocks below that pay dividends</p>
+                @Html.Partial("~/Views/Shared/_PopularStocks.cshtml")
+            </div>
+        }
+
+
+
+        @if (Model.CompanyDividends != null && Model.CompanyDividends.NumOfDividends != 0)
+        {
+            ViewBag.CompanyDividendDataUpdatedOn = $"Dividend data last updated on {@Model.UpdatedOn} (UTC)";
+        }
+        
+    </div>
+
+
+}

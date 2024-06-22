@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "About";
+    ViewBag.canonical = "https://dividome.com/about";
+}
+
+<h1>About DiviDome</h1>
+<div style="max-width: 700px;">
+    <p>Welcome to DiviDome, your ultimate destination for comprehensive dividend data on some of the most popular
+        stocks traded on the market. Our mission is simple: to empower investors with essential information related to
+        past,
+        present, and future dividend payments. In a financial world flooded with data, we've carved out a unique space
+        for
+        dividend enthusiasts.</p>
+    <p><strong>Unlike traditional financial websites that feature stock prices, market trends, and complex
+            analytics,
+            DiviDome zooms in on the heart of income investing - dividends.</strong></p>
+    <p> We understand that for income-focused
+        investors, dividend data is paramount. That's why we don't clutter your experience with stock prices and
+        speculative
+        chatter. We're all about dividends, and only dividends. At DiviDome, you'll find an extensive treasure trove of
+        dividend information for a vast array of companies
+        listed on the stock market. Whether you're a seasoned investor or just getting started, you'll appreciate our
+        user-friendly interface, making it easy to access the information you need.
+    </p>
+    <div class="mt-5">
+        <p>View some of these popular stocks that pay dividends</p>
+        @Html.Partial("~/Views/Shared/_PopularStocks.cshtml")
+    </div>
+
+</div>

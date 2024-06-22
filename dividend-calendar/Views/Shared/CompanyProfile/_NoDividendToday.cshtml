@@ -1,0 +1,100 @@
+<div class="row">
+    <div class="col-lg">
+        <p class="mb-0 mt-5">Previous dividends <b>(@Model.CompanyDividends.PastDividends.Count)</b></p>
+        @if (Model.CompanyDividends.PastDividends.Count > 0)
+        {
+            <p>The last time @Model.CompanyName paid a dividend was @Model.CompanyDividends.LastPaymentInDays days ago</p>
+            <table class="table mb-5 table-striped" style="max-width: 500px">
+                <thead>
+                    <tr>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Paid out on</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var x in Model.CompanyDividends.PastDividends)
+                    {
+                        <tr>
+                            <th scope="row">$@x.Amount</th>
+                            <td><span style="text-decoration: none; color: black" >@dividend_calendar.ApplicationServices.Services.FormatDate(DateTime.Parse(x.PaymentDate),
+                                              DateTime.Parse(x.PaymentDate).ToString("MMMM"))</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p><i>@Model.CompanyName has not paid any dividends this year</i></p>
+        }
+
+
+        <p class="mb-0">Upcoming dividends <b>(@Model.CompanyDividends.UpcomingDividends.Count)</b></p>
+        @if (Model.CompanyDividends.UpcomingDividends.Count > 0)
+        {
+            <p style="display: inline-block;">The next @Model.CompanyName dividend is scheduled to be paid out
+                in @Model.CompanyDividends.NextPaymentInDays days</p>
+            <table class="table table-striped" style="max-width: 500px">
+                <thead>
+                    <tr>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Being paid on</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var x in Model.CompanyDividends.UpcomingDividends)
+                    {
+                        <tr>
+                            <th scope="row">$@x.Amount</th>
+                           <td><span style="text-decoration: none; color: black" >@dividend_calendar.ApplicationServices.Services.FormatDate(DateTime.Parse(x.PaymentDate),
+                                              DateTime.Parse(x.PaymentDate).ToString("MMMM"))</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="mt-3"><i>There are no upcoming dividends at this time</i></p>
+        }
+
+        @if (Model.RelatedStocks != null)
+        {
+            <p style="margin-top: 100px;">Here are some other stocks you might be interested in</p>
+            @foreach (var x in Model.RelatedStocks)
+            {
+                <div>
+                    <a href="/@x.Symbol.ToLower()">@x.Name</a>
+                </div>
+
+            }
+        }
+
+    </div>
+    <div class="col-lg">
+        @if (Model.CompanyDescription != null)
+        {
+            <div class="mt-5 mb-5" style="max-width: 700px">
+                <img src="/imgs/icons/info.svg" alt="info icon" width="30"
+                    style="margin-bottom: 10px; margin-right: 10px" />
+                <h2 style="display: inline-block; margin-bottom: 0pc">About @Model.CompanyName</h2>
+                @for (int i = 0; i < Model.CompanyDescription.Length; i++)
+                {
+                    if (i == 0)
+                    {
+                        <p itemprop="description">@Model.CompanyDescription[i]</p>
+                    }
+                    else
+                    {
+                        <p>@Model.CompanyDescription[i]</p>
+                    }
+                }
+            </div>
+
+        }
+    </div>
+</div>
