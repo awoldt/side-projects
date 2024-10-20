@@ -1,0 +1,214 @@
+@media (min-width: 1px) {
+  .content {
+      border-radius: 0px;
+      padding: 1rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      background: none;
+      border: 1px solid transparent;
+  }
+
+  .scrollbar {
+      top: 20rem;
+      width: 2px;
+      height: 0%;
+      background: #2667ff;
+      animation: landingScroll linear;
+      animation-timeline: scroll();
+      position: absolute;
+  }
+
+  @keyframes landingScroll {
+      to {
+          height: 89%;
+      }
+  }
+
+  .titleHolder {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+  }
+
+  .signupHolder {
+      margin-top: 2rem;
+      display: flex;
+  }
+
+  .logoHolder {
+      margin-top: 10rem;
+      display: flex;
+      justify-content: space-around;
+      gap: 1rem;
+      margin-bottom: 10rem;
+      flex-wrap: wrap;
+  }
+
+  .heading {
+      display: flex;
+      align-items: center;
+      color: #2667ff;
+      font-size: 32px;
+      font-weight: 600;
+  }
+
+  .fade {
+      margin-top: 10rem;
+      margin-bottom: 2rem;
+      scale: .9;
+      opacity: 0;
+      animation: fadeIn linear forwards;
+      animation-timeline: view();
+      animation-range: entry;
+  }
+
+  .exploreContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      align-items: center;
+  }
+
+  .exploreCard {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 415px;
+      max-width: 100%;
+  }
+
+  .exploreAlign {
+      display: flex;
+      align-items: center;
+  }
+
+  @keyframes fadeIn {
+      to {
+          scale: 1;
+          opacity: 1;
+      }
+  }
+
+  .leftTop,
+  .leftBottom,
+  .rightTop,
+  .rightBottom {
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      border: 0px solid black;
+      z-index: 4;
+      transition: 150ms linear;
+  }
+
+  .hover {
+      perspective: 400px;
+      max-width: 100%;
+  }
+
+  .leftTop {
+      left: 0;
+      top: 0;
+  }
+
+  .leftBottom {
+      left: 0;
+      bottom: 0;
+  }
+
+  .rightTop {
+      right: 0;
+      top: 0;
+  }
+
+  .rightBottom {
+      right: 0;
+      bottom: 0;
+  }
+
+  .leftTop:hover~.hoverContainer {
+      transform: rotateX(1deg) rotateY(-1deg) rotateZ(0deg);
+      border: 1px solid #2667ff;
+      background: rgb(38, 103, 255, 0.1);
+      transition: 250ms linear;
+  }
+
+  .leftBottom:hover~.hoverContainer {
+      transform: rotateX(-1deg) rotateY(-1deg) rotateZ(0deg);
+      border: 1px solid #2667ff;
+      background: rgb(38, 103, 255, 0.1);
+      transition: 250ms linear;
+  }
+
+  .rightTop:hover~.hoverContainer {
+      transform: rotateX(1deg) rotateY(1deg) rotateZ(0deg);
+      border: 1px solid #2667ff;
+      background: rgb(38, 103, 255, 0.1);
+      transition: 250ms linear;
+  }
+
+  .rightBottom:hover~.hoverContainer {
+      transform: rotateX(-1deg) rotateY(1deg) rotateZ(0deg);
+      border: 1px solid #2667ff;
+      background: rgb(38, 103, 255, 0.1);
+      transition: 250ms linear;
+  }
+
+  .hoverContainer {
+      background: #f5f5f540;
+      border: 1px solid #171d1c20;
+      padding: 2rem;
+      transition: 250ms linear;
+  }
+
+  .fade .hoverContainer {
+      animation: changeBorderColor linear forwards;
+      animation-timeline: view();
+  }
+
+  @keyframes changeBorderColor {
+      30% {
+          border-color: #171d1c20;
+      }
+
+      50% {
+          border-color: #2667ff;
+      }
+
+      70% {
+          border-color: #171d1c20;
+      }
+  }
+
+  .buttonLarge {
+      border: 1px solid #171d1c20;
+      color: white;
+      background: #2667ff;
+      padding: 2rem;
+      font-size: 24px;
+      font-weight: 600;
+      text-align: center;
+      width: 14rem;
+      min-width: fit-content;
+      transition: 150ms linear;
+  }
+
+  .buttonLarge:hover {
+      opacity: 1;
+      border: 1px solid #2667ff;
+      background: #2667ff99;
+      transition: 150ms linear;
+  }
+}
+
+@media (min-width: 799px) {
+  .content {
+      padding: 2rem;
+  }
+}
+
+p {
+    font-size: 20px;
+}

@@ -1,0 +1,60 @@
+@media (min-width: 1px) {
+  .content {
+      border-radius: 0px;
+      border: 1px solid transparent;
+      background: none;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+  }
+
+  .cardHolder {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+  }
+
+  .card {
+      padding: 1rem;
+      border: 1px solid transparent;
+      transition: 150ms linear;
+      cursor: pointer;
+  }
+
+  .card:hover {
+      padding: 1rem;
+      border: 1px solid #171d1c40;
+      transition: 150ms linear;
+  }
+
+  .cardContent {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+  }
+
+  .cardTitleHolder {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+
+  .cardTitle {
+      display: flex;
+      align-items: center;
+  }
+
+  .cardProfileImage {
+      border-radius: 50px;
+      margin-right: 0.2rem;
+  }
+
+  .likeHolder {
+      display: flex;
+      align-items: center;
+  }
+
+  .likeText {
+      font-weight: 500;
+      font-size: 12px;
+  }
+}

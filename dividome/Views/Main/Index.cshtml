@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.title = "DiviDome - Explore Publicly Traded Stock Dividend Information";
+    ViewBag.canonical = "https://dividome.com";
+    ViewBag.description = "Unlock dividend insights for public companies. Get key data on payout dates, amounts, and financial performance. Empower your investment decisions with our user-friendly platform.";
+}
+
+<div class="content-holder">
+<h1>
+    Discover Dividend Data
+    <br>
+    for Publicly Traded Companies.
+</h1>
+<p class="text-muted mb-4">Including companies from the NASDAQ, NYSE, AMEX, ASE, and CBOE</p>
+
+@if(Model.ThisYearDividends != null) {
+    <div>
+        <p style="font-size: 30px">
+            This year there are <b>@Model.ThisYearDividends.NumOfDividends dividends</b> scheduled to be paid out across <b>@Model.NumOfCompaniesPayingDivThisYear companies</b>.
+        </p>
+    </div>
+}
+
+<div style="margin-top: 16rem;">
+    <p style="font-size: x-large;">
+        Start Scrolling to Explore <b>Today's Dividends</b> and <b>Trending Stocks</b>.
+    </p>
+</div>
+
+<div style="margin-top: 8rem;">
+    <h2>Today's Dividends</h2>
+</div>
+<p class="text-muted mb-5">@DateTime.Now.ToString("dddd, MMMM d")</p>
+
+
+@if(Model.TodaysDividends != null) {    
+    <p>There are <b>@Model.NumOfDividendsToday</b> Dividends being paid out today.</p>
+
+    <table class="table table-hover table-bordered" style="margin-top: 1rem; width: 100%">
+        <thead>
+            <tr>
+            <th scope="col">Company</th>
+            <th scope="col">Amount</th>
+           
+            </tr>
+        </thead>
+        <tbody style="cursor: pointer; background: black !important;">
+            @foreach(DivData x in Model.TodaysDividends) {
+                <tr style="cursor: pointer; background: black !important;" onclick="window.location.assign('/' + '@x.CompanyProfile.CompanySymbol.ToLower()')">
+                    <td><a href="/@x.CompanyProfile.CompanySymbol.ToLower()"><img src="@($"/imgs/{x.CompanyProfile.CompanySymbol.ToUpper()}.png")" alt="@($"{x.CompanyProfile.CompanyName} logo")" style="height: 25px; width: 25px; object-fit: cover; margin-right: 0.4rem"/>@x.CompanyProfile.CompanyName</a></td>
+                    <td>$@x.Dividend</td>
+                </tr>
+            }
+        </tbody>
+    </table> 
+    <a style="color: #0070E0 !important" href="/todaysdividends">View all of today's dividends</a>
+}
+else {
+    <div style="display: flex; align-items: center; background: #5887FF; color: white; padding: 1rem; margin-top: .4rem; margin-bottom: .4rem">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
+            fill="currentColor" viewBox="0 0 16 16" style="margin-right: .4rem">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+            <path
+                d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+        </svg>
+        <p style="color: white !important; font-weight: 500 !important;">
+            There are no dividends being paid out today 
+        </p>
+    </div>
+    
+}
+
+
+
+@if(Model.PopularStocks.Count > 0) {
+    TimeSpan days = DateTime.Parse(Model.PopularStocks[0].PaymentDate) - DateTime.Now;
+    <div style="display: flex; align-items: center; margin-top: 6rem;">
+        <h2>Trending Stocks</h2>
+    </div>
+    
+    if(@Math.Ceiling(days.TotalDays) == 1) {
+        <p><b>@Model.PopularStocks[0].CompanyProfile.CompanyName</b> has a <b>$@Model.PopularStocks[0].Dividend</b> dividend being paid out tomorrow!</p>
+    }
+    else {
+        <p><b>@Model.PopularStocks[0].CompanyProfile.CompanyName</b> has a <b>$@Model.PopularStocks[0].Dividend</b> dividend being paid out in @Math.Ceiling(days.TotalDays) days.</p>
+    }
+
+    <table class="table table-hover table-bordered" style="margin-top: 1rem; width: 100%">
+        <thead>
+            <tr>
+            <th scope="col">Company</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Payment Date</th>
+            <th scope="col">Remaining Days</th>
+            </tr>
+        </thead>
+        <tbody style="cursor: pointer; background: black !important;">
+            @foreach(DivData x in Model.PopularStocks) {
+                TimeSpan paidIn = DateTime.Parse(x.PaymentDate) - DateTime.Now;
+               <tr style="cursor: pointer; background: black !important;" onclick="window.location.assign('/' + '@x.CompanyProfile.CompanySymbol.ToLower()')">
+                    <td><a href="/@x.CompanyProfile.CompanySymbol.ToLower()"><img src="@($"/imgs/{x.CompanyProfile.CompanySymbol.ToUpper()}.png")" alt="@($"{x.CompanyProfile.CompanyName} logo")"
+ style="height: 25px; width: 25px; object-fit: cover; margin-right: 0.4rem"/>@x.CompanyProfile.CompanyName</a></td>
+                    <td>$@x.Dividend</td>
+                    <td>@x.PaymentDate</td>
+                    <td style="width: fit-content !important;">@Math.Ceiling(paidIn.TotalDays)</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>  
+}
+</div>
+
+<footer>
+            <p class="mb-3">The information provided on this website is for general informational purposes only and should not be
+                considered as financial advice. All company logos displayed are the properties of their respective owners. The use of these logos does
+                not indicate any endorsement, sponsorship, or association with the content on this site.</p>
+        </footer>

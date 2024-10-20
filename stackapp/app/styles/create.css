@@ -1,0 +1,62 @@
+@media (min-width: 1px) {
+  .holder {
+      margin-top: 0.4rem;
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+  }
+
+  .imageHolder {
+      display: flex;
+      gap: 0.4rem;
+  }
+
+  .buttonHolder {
+      display: flex;
+      margin-top: 1rem;
+      justify-content: right;
+      align-items: center;
+  }
+
+  .required {
+      color: red;
+      font-size: 12px;
+      font-weight: 600;
+  }
+
+  .selectedHolder {
+      margin-bottom: 2rem;
+  }
+
+  .selected {
+      color: #2667ff;
+      font-size: 12px;
+      font-weight: 600;
+  }
+
+  .inputSelected {
+      padding: 0.4rem;
+      padding-left: 0.7rem;
+      padding-right: 0.7rem;
+      background: white;
+      border-radius: 100px;
+      border: 1px solid #171d1c40;
+      font-size: 12px;
+      font-weight: 500;
+  }
+
+  .inputFile {
+      width: fit-content;
+  }
+
+  .createButton {
+      padding: 0.65rem;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+      background: white;
+      border-radius: 100px;
+      border: 1px solid #171d1c40;
+      font-size: 12px;
+  }
+}

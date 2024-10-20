@@ -1,0 +1,237 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+body {
+  background-color: #f9f6f0 !important;
+}
+
+footer {
+  margin-top: 100px !important;
+}
+footer p {
+  font-size: 14px !important;
+}
+
+#content {
+  width: 100%;
+}
+
+.content-holder {
+  margin-top: 35%;
+}
+
+#nav-left,
+#nav-right {
+  position: relative !important;
+  background: none !important;
+  margin-top: 1rem;
+  margin-left: 1rem !important;
+  padding: 0 !important;
+}
+
+#nav-right {
+  margin-left: 1rem !important;
+}
+
+#content {
+  width: 100%;
+}
+
+.search {
+  outline: none;
+  border: 1px solid #3a2f2f;
+  padding: 0.4rem;
+  font-weight: 500;
+  font-family: inter;
+  color: #3a2f2f;
+  width: 12rem;
+}
+
+.search:focus {
+  border: 1px solid #258cfb;
+  padding: 0.4rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  /* all: unset; */
+  font-family: "Inter";
+  font-weight: 800 !important;
+  color: #3a2f2f !important;
+}
+
+h1 {
+  font-size: 24px !important;
+  font-weight: 900 !important;
+}
+
+h2,
+.logo {
+  font-size: x-large !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.6 !important;
+  font-family: inter;
+  font-weight: 900 !important;
+  color: #3a2f2f !important;
+  font-size: large !important;
+}
+
+h3 {
+  font-size: large !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.6 !important;
+  font-weight: 400 !important;
+}
+
+p,
+::placeholder {
+  font-family: "Inter";
+  font-weight: 400 !important;
+  font-size: 16px;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: #3a2f2f !important;
+}
+
+::placeholder {
+  font-size: 14px;
+  font-weight: 500 !important;
+}
+
+a {
+  /* all: unset !important; */
+  font-family: "Inter";
+  text-decoration: none !important;
+  color: #3a2f2f !important;
+  font-weight: 600 !important;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+nav {
+  background-color: #7952b3 !important;
+}
+
+nav a {
+  color: white !important;
+}
+
+.navbar-brand {
+  color: white;
+}
+
+.related-stock-link {
+  display: block;
+  width: fit-content;
+}
+
+.upcoming-dividend-tr {
+  background-color: #cff4fc !important;
+}
+
+.company-logo-img {
+  height: 180px;
+  margin-right: 10px;
+}
+
+th {
+  font-family: "Inter" !important;
+  font-weight: 600 !important;
+  color: #3a2f2f !important;
+}
+
+tr,
+td {
+  font-family: "Inter" !important;
+  font-weight: 400 !important;
+  font-size: 14px;
+  color: #3a2f2f !important;
+  transition: 150ms linear;
+}
+
+td:hover {
+  transition: 150ms linear;
+}
+
+hr {
+  opacity: 1 !important;
+  color: #dee2e6 !important;
+}
+
+@media (min-width: 699px) {
+  #content {
+    width: 90%;
+  }
+
+  .content-holder {
+    margin-top: 25%;
+  }
+}
+
+@media (min-width: 999px) {
+  h1 {
+    font-size: 48px !important;
+  }
+
+  h2 {
+    font-size: xx-large !important;
+  }
+
+  h3 {
+    font-size: x-large !important;
+  }
+
+  p {
+    font-size: 18px;
+  }
+
+  tr,
+  td {
+    font-size: 16px !important;
+  }
+}
+
+@media (min-width: 1499px) {
+  #content {
+    width: 60%;
+  }
+
+  .content-holder {
+    margin-top: 28%;
+  }
+
+  #nav-left {
+    position: fixed !important;
+    top: 0px !important;
+    left: 0px !important;
+    margin-left: 4rem !important;
+    margin-top: 2rem !important;
+  }
+
+  #nav-right {
+    position: fixed !important;
+    top: 0px !important;
+    right: 0px !important;
+    margin-right: 4rem !important;
+    margin-top: 2rem !important;
+  }
+
+  .search {
+    width: 14rem;
+  }
+}
+
+.company-description-ptag {
+  margin-bottom: 15px !important;
+}
