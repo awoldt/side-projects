@@ -1,0 +1,43 @@
+{
+  "name": "politifools",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production react-router build",
+    "dev": "react-router dev",
+    "start": "cross-env NODE_ENV=production react-router-serve ./build/server/index.js",
+    "typecheck": "react-router typegen && tsc"
+  },
+  "dependencies": {
+    "@mantine/core": "^7.14.3",
+    "@mantine/hooks": "^7.14.3",
+    "@react-router/fs-routes": "^7.0.2",
+    "@react-router/node": "^7.0.2",
+    "@react-router/serve": "^7.0.2",
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.47.7",
+    "isbot": "^5.1.17",
+    "lucide-react": "^0.468.0",
+    "pg": "^8.13.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router": "^7.0.2",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@react-router/dev": "^7.0.2",
+    "@types/node": "^20",
+    "@types/pg": "^8.11.10",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
+    "autoprefixer": "^10.4.20",
+    "cross-env": "^7.0.3",
+    "postcss": "^8.4.49",
+    "postcss-preset-mantine": "^1.17.0",
+    "postcss-simple-vars": "^7.0.1",
+    "tailwindcss": "^3.4.16",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11",
+    "vite-tsconfig-paths": "^5.1.4"
+  }
+}
